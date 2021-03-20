@@ -9,10 +9,8 @@ import tictactoe.TicTacToe;
 
 import javax.swing.JButton;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.text.StringCharacterIterator;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static java.util.stream.IntStream.range;
@@ -22,6 +20,12 @@ public class TicTacToeTest extends SwingTest {
     private static final String EMPTY_CELL = " ";
     private static final String MARK_X = "X";
     private static final String MARK_O = "O";
+    private static final Map<String, String> GAME_STATE = Map.of(
+            "E", "The game is not started",
+            "P", "The game is playing",
+            "X", "X wins",
+            "O", "O wins",
+            "D", "Draw");
 
     public TicTacToeTest() {
         super(new TicTacToe());
@@ -58,12 +62,19 @@ public class TicTacToeTest extends SwingTest {
         );
     }
 
+    private Map<String, JButtonFixture> board;
+
     private final List<JButton> buttons = new ArrayList<>();
 
     @DynamicTest(feedback = "Cells should be visible")
     CheckResult test1() {
         cells().forEach(this::requireVisible);
         cells().map(JButtonFixture::target).forEach(buttons::add);
+        board = Map.of(
+                "A3", buttonA3, "B3", buttonB3, "C3", buttonC3,
+                "A2", buttonA2, "B2", buttonB2, "C2", buttonC2,
+                "A1", buttonA1, "B1", buttonB1, "C1", buttonC1,
+                "RS", buttonReset);
         return correct();
     }
 
@@ -129,7 +140,7 @@ public class TicTacToeTest extends SwingTest {
 
     @DynamicTest(feedback = "The status bar should contains text 'The game is not started' before the game")
     CheckResult test7() {
-        labelStatus.requireText("The game is not started");
+        labelStatus.requireText(GAME_STATE.get("E"));
         return correct();
     }
 
@@ -147,6 +158,30 @@ public class TicTacToeTest extends SwingTest {
         buttonA3.requireText(MARK_O);
         return correct();
     }
+
+    @DynamicTest(feedback = "After the reset button pressed the board should be empty")
+    CheckResult test12() {
+        buttonReset.click();
+        cells().forEach(cell -> cell.requireText(EMPTY_CELL));
+        labelStatus.requireText(GAME_STATE.get("E"));
+        return correct();
+    }
+
+    private String[][] testGame = new String[][]{
+            {"A1", "______X__", "P"}, {"B1", "______XO_", "P"},
+            {"C3", "__X___XO_", "P"}, {"B3", "_OX___XO_", "P"},
+            {"B2", "_OX_X_XO_", "X"}, {"RS", "_________", "E"}
+    };
+
+    @DynamicTest(data = "testGame", feedback = "Incorrect state of the game")
+    CheckResult test20(final String cell, final String position, final String state) {
+        board.get(cell).click();
+        labelStatus.requireText(GAME_STATE.get(state));
+        final var iter = new StringCharacterIterator(" " + position.replace('_', ' '));
+        cells().forEach(c -> c.requireText(String.valueOf(iter.next())));
+        return correct();
+    }
+
 
     private static void assertEquals(
             final Object expected,
