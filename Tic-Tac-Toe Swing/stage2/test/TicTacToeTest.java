@@ -1,4 +1,5 @@
 import org.assertj.swing.fixture.JButtonFixture;
+import org.assertj.swing.fixture.JLabelFixture;
 import org.hyperskill.hstest.dynamic.DynamicTest;
 import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
 import org.hyperskill.hstest.stage.SwingTest;
@@ -18,6 +19,10 @@ import static java.util.stream.IntStream.range;
 import static org.hyperskill.hstest.testcase.CheckResult.correct;
 
 public class TicTacToeTest extends SwingTest {
+    private static final String EMPTY_CELL = " ";
+    private static final String MARK_X = "X";
+    private static final String MARK_O = "O";
+
     public TicTacToeTest() {
         super(new TicTacToe());
     }
@@ -40,26 +45,37 @@ public class TicTacToeTest extends SwingTest {
     private JButtonFixture buttonC2;
     @SwingComponent
     private JButtonFixture buttonC3;
+    @SwingComponent
+    private JButtonFixture buttonReset;
+    @SwingComponent
+    private JLabelFixture labelStatus;
+
+    private Stream<JButtonFixture> cells() {
+        return Stream.of(
+                buttonA3, buttonB3, buttonC3,
+                buttonA2, buttonB2, buttonC2,
+                buttonA1, buttonB1, buttonC1
+        );
+    }
 
     private final List<JButton> buttons = new ArrayList<>();
 
-    @DynamicTest(feedback = "Buttons should have a name buttonA1..buttonC3, be visible and have labels 'A1'...'C3'")
+    @DynamicTest(feedback = "Cells should be visible")
     CheckResult test1() {
-        final var board = Map.of(
-                "A3", buttonA3, "B3", buttonB3, "C3", buttonC3,
-                "A2", buttonA2, "B2", buttonB2, "C2", buttonC2,
-                "A1", buttonA1, "B1", buttonB1, "C1", buttonC1);
+        cells().forEach(this::requireVisible);
+        cells().map(JButtonFixture::target).forEach(buttons::add);
+        return correct();
+    }
 
-        board.forEach((label, button) -> {
-            requireVisible(button);
-            button.requireText(label);
-        });
+    @DynamicTest(feedback = "Cells should be enabled")
+    CheckResult test2() {
+        cells().forEach(this::requireEnabled);
+        return correct();
+    }
 
-        Stream.of("A3", "B3", "C3", "A2", "B2", "C2", "A1", "B1", "C1")
-                .map(board::get)
-                .map(JButtonFixture::target)
-                .forEach(buttons::add);
-
+    @DynamicTest(feedback = "All cells should be empty before the game")
+    CheckResult test3() {
+        cells().forEach(cell -> cell.requireText(EMPTY_CELL));
         return correct();
     }
 
@@ -67,7 +83,7 @@ public class TicTacToeTest extends SwingTest {
     private int[] rows;
 
     @DynamicTest(feedback = "The board should have exactly three rows and columns")
-    CheckResult test2() {
+    CheckResult test4() {
         cols = buttons.stream().mapToInt(JButton::getX).distinct().sorted().toArray();
         rows = buttons.stream().mapToInt(JButton::getY).distinct().sorted().toArray();
 
@@ -90,7 +106,7 @@ public class TicTacToeTest extends SwingTest {
     private static final String[] COL_NAME = new String[]{"left", "middle", "right"};
 
     @DynamicTest(feedback = "The buttons are incorrectly placed on the board")
-    CheckResult test3() {
+    CheckResult test5() {
         range(0, 9).forEach(index -> {
 
             assertEquals(rows[index / 3], buttons.get(index).getY(),
@@ -102,6 +118,33 @@ public class TicTacToeTest extends SwingTest {
                     buttons.get(index).getText(), COL_NAME[index % 3]);
         });
 
+        return correct();
+    }
+
+    @DynamicTest(feedback = "An JLabel with name 'LabelStatus' should be added as status bar")
+    CheckResult test6() {
+        labelStatus.requireVisible();
+        return correct();
+    }
+
+    @DynamicTest(feedback = "The status bar should contains text 'The game is not started' before the game")
+    CheckResult test7() {
+        labelStatus.requireText("The game is not started");
+        return correct();
+    }
+
+    @DynamicTest(feedback = "An JButton with name 'ButtonReset' should be added and enabled")
+    CheckResult test8() {
+        buttonReset.requireEnabled();
+        return correct();
+    }
+
+    @DynamicTest(feedback = "The Game")
+    CheckResult test10() {
+        buttonA1.click();
+        buttonA1.requireText(MARK_X);
+        buttonA3.click();
+        buttonA3.requireText(MARK_O);
         return correct();
     }
 
