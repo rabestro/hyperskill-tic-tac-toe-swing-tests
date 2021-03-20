@@ -32,8 +32,10 @@ public class TicTacToe extends JFrame implements ActionListener {
         log.entering(TicTacToe.class.getName(), "actionPerformed", e);
         final var cell = (Cell) e.getSource();
         final var index = getIndex(cell.getName().substring(6));
-        log.log(Level.INFO, "Index: {0}", index);
-        if (cell.isEmpty()) {
+        log.log(Level.INFO, "Index: {0}, Status: {1}",
+                new Object[]{index, board.getGameState().getMessage()});
+
+        if (cell.isEmpty() && board.isPlaying()) {
             cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
             statusBar.setMessage(board.getGameState());
             currentPlayer = 1 - currentPlayer;

@@ -51,11 +51,11 @@ public class Board extends JPanel  {
     }
 
     private boolean isEmpty() {
-        return cells.stream().map(JButton::getText).allMatch(String::isEmpty);
+        return cells.stream().map(JButton::getText).allMatch(String::isBlank);
     }
 
     private boolean isFull() {
-        return cells.stream().map(JButton::getText).noneMatch(String::isEmpty);
+        return cells.stream().map(JButton::getText).noneMatch(String::isBlank);
     }
 
     private boolean isEmpty(final int index) {
@@ -69,6 +69,11 @@ public class Board extends JPanel  {
                 .allMatch(mark.getMark()::equals);
 
         return Arrays.stream(TRIPS).anyMatch(threeInRow);
+    }
+
+    public boolean isPlaying() {
+        final var state = getGameState();
+        return state == State.NOT_STARTED || state == State.PLAYING;
     }
 
     public int[] getFreeCells() {
