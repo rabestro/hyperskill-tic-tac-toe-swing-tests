@@ -8,7 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
 public class StatusBar extends JPanel {
-    final JLabel status = new JLabel(GameState.NOT_STARTED.getMessage());
+    final JLabel status = new JLabel(Board.State.NOT_STARTED.getMessage());
 
     {
         setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -23,5 +23,9 @@ public class StatusBar extends JPanel {
         reset.setText("Reset");
         reset.addActionListener(actionListener);
         add(reset);
+    }
+
+    void setMessage(Board.State state) {
+        status.setText(state.getMessage());
     }
 }

@@ -1,11 +1,15 @@
 package tictactoe;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Board extends JPanel  {
@@ -27,6 +31,66 @@ public class Board extends JPanel  {
     }
 
     void clear() {
-        cells.forEach(cell -> cell.setText(" "));
+        cells.forEach(Cell::clear);
+    }
+
+    public State getGameState() {
+        if (isEmpty()) {
+            return State.NOT_STARTED;
+        }
+        if (hasTrips(Cell.Mark.X)) {
+            return State.X_WINS;
+        }
+        if (hasTrips(Cell.Mark.O)) {
+            return State.O_WINS;
+        }
+        if (isFull()) {
+            return State.DRAW;
+        }
+        return State.PLAYING;
+    }
+
+    private boolean isEmpty() {
+        return cells.stream().map(JButton::getText).allMatch(String::isEmpty);
+    }
+
+    private boolean isFull() {
+        return cells.stream().map(JButton::getText).noneMatch(String::isEmpty);
+    }
+
+    private boolean isEmpty(final int index) {
+        return cells.get(index).getText().isEmpty();
+    }
+
+    private boolean hasTrips(Cell.Mark mark) {
+        Predicate<int[]> threeInRow = line -> Arrays.stream(line)
+                .mapToObj(cells::get)
+                .map(JButton::getText)
+                .allMatch(mark.getMark()::equals);
+
+        return Arrays.stream(TRIPS).anyMatch(threeInRow);
+    }
+
+    public int[] getFreeCells() {
+        return IntStream.range(0, 9).filter(this::isEmpty).toArray();
+    }
+
+    public enum State {
+        NOT_STARTED("The game is not started"),
+        PLAYING("The game is playing"),
+        DRAW("Draw"),
+        X_WINS("X wins"),
+        O_WINS("O wins"),
+        IMPOSSIBLE("Impossible");
+
+        final String message;
+
+        State(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 }

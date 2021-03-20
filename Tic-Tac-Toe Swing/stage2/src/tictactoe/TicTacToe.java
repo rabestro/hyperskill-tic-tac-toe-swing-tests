@@ -42,15 +42,19 @@ public class TicTacToe extends JFrame implements ActionListener {
             button.setText("O");
 //            board.set(index, Mark.O);
         }
+
+        statusBar.setMessage(board.getGameState());
+        currentPlayer = 1 - currentPlayer;
     }
 
     private static int getIndex(final String notation) {
+        log.info(notation);
         return ('3' - notation.charAt(1)) * 3 - 'A' + notation.charAt(0);
     }
 
     public void reset(final ActionEvent e) {
         board.clear();
         currentPlayer = 0;
-        statusBar.status.setText(GameState.NOT_STARTED.getMessage());
+        statusBar.setMessage(Board.State.NOT_STARTED);
     }
 }

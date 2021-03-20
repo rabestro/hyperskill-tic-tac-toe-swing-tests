@@ -10,10 +10,28 @@ class Cell extends JButton {
 
     Cell(final String name, final ActionListener listener) {
         super(EMPTY_CELL);
-        setName(name);
+        setName("Button" + name);
         setFont(COMIC_SANS);
         addActionListener(listener);
         setFocusPainted(false);
         setVisible(true);
+    }
+
+    void clear() {
+        setText(Mark.EMPTY.getMark());
+    }
+
+    public enum Mark {
+        EMPTY(" "), X("X"), O("O");
+
+        private String mark;
+
+        public String getMark() {
+            return mark;
+        }
+
+        Mark(String mark) {
+            this.mark = mark;
+        }
     }
 }
