@@ -18,6 +18,8 @@ import static java.util.stream.IntStream.range;
 import static org.hyperskill.hstest.testcase.CheckResult.correct;
 
 public class TicTacToeTest extends SwingTest {
+    private static final int BOARD_SIZE = 3;
+
     public TicTacToeTest() {
         super(new TicTacToe());
     }
@@ -71,13 +73,13 @@ public class TicTacToeTest extends SwingTest {
         cols = buttons.stream().mapToInt(JButton::getX).distinct().sorted().toArray();
         rows = buttons.stream().mapToInt(JButton::getY).distinct().sorted().toArray();
 
-        assertEquals(3, cols.length,
+        assertEquals(BOARD_SIZE, cols.length,
                 "The board should have only 3 columns. "
                         + "The coordinates for columns are {0}, "
                         + "the buttons have {1} different coordinates for columns",
                 Arrays.toString(cols), cols.length);
 
-        assertEquals(3, rows.length,
+        assertEquals(BOARD_SIZE, rows.length,
                 "The board should have only 3 rows. "
                         + "The coordinates for rows are {0}, "
                         + "The buttons have {0} different coordinates for rows",
@@ -91,15 +93,15 @@ public class TicTacToeTest extends SwingTest {
 
     @DynamicTest(feedback = "The buttons are incorrectly placed on the board")
     CheckResult test3() {
-        range(0, 9).forEach(index -> {
+        range(0, BOARD_SIZE * BOARD_SIZE).forEach(index -> {
 
-            assertEquals(rows[index / 3], buttons.get(index).getY(),
+            assertEquals(rows[index / BOARD_SIZE], buttons.get(index).getY(),
                     "The button {0} should be located on the {1} row",
-                    buttons.get(index).getText(), ROW_NAME[index / 3]);
+                    buttons.get(index).getText(), ROW_NAME[index / BOARD_SIZE]);
 
-            assertEquals(cols[index % 3], buttons.get(index).getX(),
+            assertEquals(cols[index % BOARD_SIZE], buttons.get(index).getX(),
                     "The button {0} should be located on the {1} column",
-                    buttons.get(index).getText(), COL_NAME[index % 3]);
+                    buttons.get(index).getText(), COL_NAME[index % BOARD_SIZE]);
         });
 
         return correct();
