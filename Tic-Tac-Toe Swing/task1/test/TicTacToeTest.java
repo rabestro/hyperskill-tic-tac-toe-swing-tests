@@ -11,7 +11,9 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
+import static java.util.stream.IntStream.range;
 import static org.hyperskill.hstest.testcase.CheckResult.correct;
 
 public class TicTacToeTest extends SwingTest {
@@ -50,21 +52,48 @@ public class TicTacToeTest extends SwingTest {
         board.forEach((label, button) -> {
             requireVisible(button);
             button.requireText(label);
-            buttons.add(button.target());
         });
+
+        Stream.of("A3", "B3", "C3", "A2", "B2", "C2", "A1", "B1", "C1")
+                .map(board::get)
+                .map(JButtonFixture::target)
+                .forEach(buttons::add);
+
         return correct();
     }
 
+    private int[] cols;
+    private int[] rows;
+
     @DynamicTest(feedback = "The board should have exactly three rows and columns")
     CheckResult test2() {
-        final var cols = buttons.stream().mapToInt(JButton::getX).distinct().sorted().toArray();
-        final var rows = buttons.stream().mapToInt(JButton::getY).distinct().sorted().toArray();
+        cols = buttons.stream().mapToInt(JButton::getX).distinct().sorted().toArray();
+        rows = buttons.stream().mapToInt(JButton::getY).distinct().sorted().toArray();
 
-        assertEquals(3, cols.length, "The board should have only 3 columns but buttons "
-                + "have {0} different coordinates for columns", cols.length);
+        assertEquals(3, cols.length, "The board should have only 3 columns. "
+                + "Buttons have {0} different coordinates for columns", cols.length);
 
         assertEquals(3, rows.length, "The board should have only 3 rows but buttons "
                 + "have {0} different coordinates for rows", rows.length);
+
+        return correct();
+    }
+
+    private static final String[] ROW_NAME = new String[]{"top", "middle", "bottom"};
+    private static final String[] COL_NAME = new String[]{"left", "middle", "right"};
+
+    @DynamicTest(feedback = "The buttons are incorrectly placed on the board")
+    CheckResult test3() {
+        range(0, 9).forEach(index -> {
+
+            assertEquals(rows[index / 3], buttons.get(index).getY(),
+                    "The button {0} should be located on the {1} row",
+                    buttons.get(index).getText(), ROW_NAME[index / 3]);
+
+            assertEquals(cols[index % 3], buttons.get(index).getX(),
+                    "The button {0} should be located on the {1} column",
+                    buttons.get(index).getText(), COL_NAME[index % 3]);
+        });
 
         return correct();
     }
