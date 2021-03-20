@@ -1,0 +1,9 @@
+title: Tic Tac Toe Swing
+language: English
+summary: Everyone once played this simple game of tic-tac-toe. In this project, we
+  will create a version of this game using the swing graphics library. We will teach
+  the computer to play tic-tac-toe and will be able to fight both with our friend
+  and with the computer.
+programming_language: Java
+content:
+- Tic-Tac-Toe Swing
