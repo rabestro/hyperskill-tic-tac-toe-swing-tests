@@ -33,7 +33,7 @@ public class TicTacToeTest extends SwingTest {
     @SwingComponent
     private JButtonFixture buttonC3;
 
-    @DynamicTest
+    @DynamicTest(feedback = "Buttons should be visible and have label 'A1'...'C3'")
     CheckResult test1() {
         final var board = Map.of(
                 "A1", buttonA1, "A2", buttonA2, "A3", buttonA3,
@@ -42,6 +42,7 @@ public class TicTacToeTest extends SwingTest {
 
         board.entrySet().stream().forEach(entry -> {
             requireVisible(entry.getValue());
+            entry.getValue().requireText(entry.getKey());
         });
 
         return correct();
