@@ -9,6 +9,7 @@ import tictactoe.TicTacToe;
 import javax.swing.JButton;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -70,11 +71,17 @@ public class TicTacToeTest extends SwingTest {
         cols = buttons.stream().mapToInt(JButton::getX).distinct().sorted().toArray();
         rows = buttons.stream().mapToInt(JButton::getY).distinct().sorted().toArray();
 
-        assertEquals(3, cols.length, "The board should have only 3 columns. "
-                + "Buttons have {0} different coordinates for columns", cols.length);
+        assertEquals(3, cols.length,
+                "The board should have only 3 columns. "
+                        + "The coordinates for columns are {0}, "
+                        + "the buttons have {1} different coordinates for columns",
+                Arrays.toString(cols), cols.length);
 
-        assertEquals(3, rows.length, "The board should have only 3 rows but buttons "
-                + "have {0} different coordinates for rows", rows.length);
+        assertEquals(3, rows.length,
+                "The board should have only 3 rows. "
+                        + "The coordinates for rows are {0}, "
+                        + "The buttons have {0} different coordinates for rows",
+                Arrays.toString(rows), rows.length);
 
         return correct();
     }
