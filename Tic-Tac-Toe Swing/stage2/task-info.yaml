@@ -1,0 +1,6 @@
+type: edu
+files:
+- name: test/TicTacToeTest.java
+  visible: false
+- name: src/tictactoe/ApplicationRunner.java
+  visible: true
