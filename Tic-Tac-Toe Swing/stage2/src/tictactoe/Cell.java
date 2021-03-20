@@ -21,6 +21,14 @@ class Cell extends JButton {
         setText(Mark.EMPTY.getMark());
     }
 
+    boolean isEmpty() {
+        return getText().equals(Mark.EMPTY.getMark());
+    }
+
+    void setMark(final Mark mark) {
+        setText(mark.getMark());
+    }
+
     public enum Mark {
         EMPTY(" "), X("X"), O("O");
 

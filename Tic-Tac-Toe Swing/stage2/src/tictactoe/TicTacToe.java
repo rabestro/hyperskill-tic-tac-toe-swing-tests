@@ -1,6 +1,5 @@
 package tictactoe;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,20 +30,14 @@ public class TicTacToe extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent e) {
         log.entering(TicTacToe.class.getName(), "actionPerformed", e);
-        final var button = (JButton) e.getSource();
-        final var index = getIndex(button.getName().substring(6));
+        final var cell = (Cell) e.getSource();
+        final var index = getIndex(cell.getName().substring(6));
         log.log(Level.INFO, "Index: {0}", index);
-
-        if (currentPlayer == 0) {
-            button.setText("X");
-//            board.set(index, Mark.X);
-        } else {
-            button.setText("O");
-//            board.set(index, Mark.O);
+        if (cell.isEmpty()) {
+            cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
+            statusBar.setMessage(board.getGameState());
+            currentPlayer = 1 - currentPlayer;
         }
-
-        statusBar.setMessage(board.getGameState());
-        currentPlayer = 1 - currentPlayer;
     }
 
     private static int getIndex(final String notation) {
