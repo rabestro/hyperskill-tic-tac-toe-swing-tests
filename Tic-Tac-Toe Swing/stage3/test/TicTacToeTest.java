@@ -182,8 +182,15 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "The first player should have 'X' mark and the second 'O'")
+    @DynamicTest(feedback = "Player's chooser component should be disabled after the game started")
     CheckResult test14() {
+        buttonPlayer1.requireDisabled();
+        buttonPlayer2.requireDisabled();
+        return correct();
+    }
+
+    @DynamicTest(feedback = "The first player should have 'X' mark and the second 'O'")
+    CheckResult test15() {
         buttonA1.click();
         buttonA1.requireText(MARK_X);
         buttonA3.click();
@@ -191,9 +198,18 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "After the reset button pressed the board should be empty")
+    @DynamicTest(feedback = "After the 'Reset' button is pressed and game finished " +
+            "the Player's chooser components should be enabled")
     CheckResult test16() {
         buttonStartReset.click();
+        buttonPlayer1.requireEnabled();
+        buttonPlayer2.requireEnabled();
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After the reset button pressed the board should be empty" +
+            " and status should indicate that 'The game is not started'")
+    CheckResult test18() {
         cells().forEach(cell -> cell.requireText(EMPTY_CELL));
         labelStatus.requireText(GAME_STATE.get("E"));
         return correct();
@@ -236,6 +252,30 @@ public class TicTacToeTest extends SwingTest {
         labelStatus.requireText(GAME_STATE.get(state));
         final var iter = new StringCharacterIterator(" " + position.replace('_', ' '));
         cells().forEach(c -> c.requireText(String.valueOf(iter.next())));
+        return correct();
+    }
+
+
+    @DynamicTest(feedback = "The player's buttons should be Human vs Human")
+    CheckResult test30() {
+        buttonPlayer1.requireText("Human");
+        buttonPlayer2.requireText("Human");
+        return correct();
+    }
+
+    @DynamicTest(feedback = "The player's buttons should switch Human/Robot")
+    CheckResult test40() {
+        buttonPlayer1.click();
+        buttonPlayer1.requireText("Robot");
+        buttonPlayer1.click();
+        buttonPlayer1.requireText("Human");
+
+        buttonPlayer2.click();
+        buttonPlayer2.requireText("Robot");
+        buttonPlayer2.click();
+        buttonPlayer2.requireText("Human");
+        buttonPlayer2.click();
+        buttonPlayer2.requireText("Robot");
         return correct();
     }
 
