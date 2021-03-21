@@ -98,8 +98,8 @@ public class Board extends JPanel  {
         EMPTY("The game is not started"),
         PLAYING("The turn of {0} Player ({1})"),
         DRAW("Draw"),
-        X_WINS("{0} Player (X) wins"),
-        O_WINS("{0} Player (O) wins");
+        X_WINS("The {0} Player (X) wins"),
+        O_WINS("The {0} Player (O) wins");
 
         final String message;
 

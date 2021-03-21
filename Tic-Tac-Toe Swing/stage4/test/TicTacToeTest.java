@@ -1,5 +1,6 @@
 import org.assertj.swing.fixture.JButtonFixture;
 import org.assertj.swing.fixture.JLabelFixture;
+import org.assertj.swing.fixture.JMenuItemFixture;
 import org.hyperskill.hstest.dynamic.DynamicTest;
 import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
 import org.hyperskill.hstest.stage.SwingTest;
