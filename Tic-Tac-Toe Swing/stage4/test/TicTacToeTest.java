@@ -124,13 +124,13 @@ public class TicTacToeTest extends SwingTest {
         rows = buttons.stream().mapToInt(JButton::getY).distinct().sorted().toArray();
 
         assertEquals(3, cols.length,
-                "The board should have only 3 columns. "
+                "The board should have exactly 3 columns. "
                         + "The coordinates for columns are {0}, "
                         + "the buttons have {1} different coordinates for columns",
                 Arrays.toString(cols), cols.length);
 
         assertEquals(3, rows.length,
-                "The board should have only 3 rows. "
+                "The board should have exactly 3 rows. "
                         + "The coordinates for rows are {0}, "
                         + "The buttons have {0} different coordinates for rows",
                 Arrays.toString(rows), rows.length);
@@ -272,6 +272,14 @@ public class TicTacToeTest extends SwingTest {
             {"A3", "X___XO_OX", "HX"}, {"B3", "X___XO_OX", "HX"},
             {"C3", "X___XO_OX", "HX"}, {"A1", "X___XO_OX", "HX"},
             {"A1", "X___XO_OX", "HX"}, {"SR", "_________", "--"},
+
+            // Test for double click on the same cells
+            {"SR", "_________", "H1"},
+            {"B2", "____X____", "H2"}, {"B2", "____X____", "H2"},
+            {"B2", "____X____", "H2"}, {"C1", "____X___O", "H1"},
+            {"C1", "____X___O", "H1"}, {"C1", "____X___O", "H1"},
+            {"SR", "_________", "--"},
+
     };
 
     @DynamicTest(data = "humanVsHuman", feedback = "Incorrect state of the game")

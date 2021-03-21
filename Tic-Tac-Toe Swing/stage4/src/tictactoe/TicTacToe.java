@@ -7,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -66,9 +65,10 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     public void move(final Cell cell) {
         log.entering(TicTacToe.class.getName(), "move", cell);
-        if (cell.isEmpty() && board.isPlaying()) {
-            cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
+        if (!cell.isEmpty() || !board.isPlaying()) {
+            return;
         }
+        cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
         if (board.getGameState() != Board.State.PLAYING) {
             board.setPlaying(false);
         } else {
