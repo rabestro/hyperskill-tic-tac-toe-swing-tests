@@ -21,8 +21,8 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     private int currentPlayer;
 
-    {
-        log.info("tictactoe.TicTacToe is started.");
+    public TicTacToe() {
+        log.info("TicTacToe is started.");
         setJMenuBar(new AppMenu(this::processMenu));
         add(board, BorderLayout.CENTER);
         add(toolbar, BorderLayout.NORTH);
@@ -65,9 +65,7 @@ public class TicTacToe extends JFrame implements ActionListener {
     }
 
     public void move(final Cell cell) {
-        log.log(Level.INFO, "Index: {0}, Status: {1}",
-                new Object[]{cell.getIndex(), board.getGameState().getMessage()});
-
+        log.entering(TicTacToe.class.getName(), "move", cell);
         if (cell.isEmpty() && board.isPlaying()) {
             cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
         }
@@ -80,6 +78,7 @@ public class TicTacToe extends JFrame implements ActionListener {
         statusBar.setMessage(board.getGameState(), currentPlayer(), mark.getMark());
 
         checkRobot();
+        log.exiting(TicTacToe.class.getName(), "move", board.getGameState());
     }
 
     public void start() {

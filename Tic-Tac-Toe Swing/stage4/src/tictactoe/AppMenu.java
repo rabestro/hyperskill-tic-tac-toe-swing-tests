@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 public class AppMenu extends JMenuBar {
 
     public AppMenu(final ActionListener actionListener) {
+        super();
         final var menuItemHH = new JMenuItem("Human vs Human", KeyEvent.VK_H);
         menuItemHH.setName("MenuHumanHuman");
         menuItemHH.addActionListener(actionListener);
@@ -18,11 +19,11 @@ public class AppMenu extends JMenuBar {
         menuItemHR.addActionListener(actionListener);
 
         final var menuItemRH = new JMenuItem("Robot vs Human", KeyEvent.VK_U);
-        menuItemRH.setName("MenuHumanHuman");
+        menuItemRH.setName("MenuRobotHuman");
         menuItemRH.addActionListener(actionListener);
 
         final var menuItemRR = new JMenuItem("Robot vs Robot", KeyEvent.VK_O);
-        menuItemRR.setName("MenuHumanHuman");
+        menuItemRR.setName("MenuRobotRobot");
         menuItemRR.addActionListener(actionListener);
 
         final var menuItemExit = new JMenuItem("Exit", KeyEvent.VK_X);

@@ -66,8 +66,18 @@ public class TicTacToeTest extends SwingTest {
     private JButtonFixture buttonPlayer2;
     @SwingComponent
     private JLabelFixture labelStatus;
-//    @SwingComponent
-//    private JMenuItemFixture menuHumanHuman;
+    @SwingComponent
+    private JMenuItemFixture menuGame;
+    @SwingComponent
+    private JMenuItemFixture menuHumanHuman;
+    @SwingComponent
+    private JMenuItemFixture menuHumanRobot;
+    @SwingComponent
+    private JMenuItemFixture menuRobotHuman;
+    @SwingComponent
+    private JMenuItemFixture menuRobotRobot;
+    @SwingComponent
+    private JMenuItemFixture menuExit;
 
     private Stream<JButtonFixture> cells() {
         return Stream.of(
@@ -294,6 +304,75 @@ public class TicTacToeTest extends SwingTest {
         buttonPlayer2.requireText("Human");
         buttonPlayer2.click();
         buttonPlayer2.requireText("Robot");
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After select menu 'Human vs Human' the Game should start. " +
+            "The both player's chooser should be set to 'Human' and disabled. " +
+            "The Start/Reset button have to set to 'Reset' and cells should be enabled. " +
+            "The status should indicate that the turn for the first human player.")
+    CheckResult test50() {
+        menuHumanHuman.requireEnabled();
+        menuHumanHuman.requireVisible();
+        menuHumanHuman.click();
+        buttonPlayer1.requireText("Human");
+        buttonPlayer2.requireText("Human");
+        buttonPlayer1.requireDisabled();
+        buttonPlayer2.requireDisabled();
+        buttonStartReset.requireText("Reset");
+        cells().forEach(this::requireEnabled);
+        labelStatus.requireText(GAME_STATE.get("H1"));
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After select menu 'Human vs Robot' the Game should start. " +
+            "The first player's chooser should be set to 'Human' and disabled. " +
+            "The second player's chooser should be set to 'Robot' and disabled. " +
+            "The Start/Reset button have to set to 'Reset' and cells should be enabled. " +
+            "The status should indicate that the turn for the first human player.")
+    CheckResult test60() {
+        menuHumanRobot.requireEnabled();
+        menuHumanRobot.requireVisible();
+        menuHumanRobot.click();
+        buttonPlayer1.requireText("Human");
+        buttonPlayer2.requireText("Robot");
+        buttonPlayer1.requireDisabled();
+        buttonPlayer2.requireDisabled();
+        buttonStartReset.requireText("Reset");
+        cells().forEach(this::requireEnabled);
+        labelStatus.requireText(GAME_STATE.get("H1"));
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After select menu 'Human vs Robot' the Game should start. " +
+            "The first player's chooser should be set to 'Robot' and disabled. " +
+            "The second player's chooser should be set to 'Human' and disabled. " +
+            "The Start/Reset button have to set to 'Reset' and cells should be enabled.")
+    CheckResult test70() {
+        menuRobotHuman.requireEnabled();
+        menuRobotHuman.requireVisible();
+        menuRobotHuman.click();
+        buttonPlayer1.requireText("Robot");
+        buttonPlayer2.requireText("Human");
+        buttonPlayer1.requireDisabled();
+        buttonPlayer2.requireDisabled();
+        buttonStartReset.requireText("Reset");
+        cells().forEach(this::requireEnabled);
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After select menu 'Robot vs Robot' the Game should start. " +
+            "The both player's chooser should be set to 'Robot' and disabled. " +
+            "The Start/Reset button have to set to 'Reset' and cells should be enabled.")
+    CheckResult test80() {
+        menuRobotRobot.requireEnabled();
+        menuRobotRobot.requireVisible();
+        menuRobotRobot.click();
+        buttonPlayer1.requireText("Robot");
+        buttonPlayer2.requireText("Robot");
+        buttonPlayer1.requireDisabled();
+        buttonPlayer2.requireDisabled();
+        buttonStartReset.requireText("Reset");
         return correct();
     }
 
