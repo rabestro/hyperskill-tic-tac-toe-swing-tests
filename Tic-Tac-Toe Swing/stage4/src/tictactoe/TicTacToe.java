@@ -2,15 +2,19 @@ package tictactoe;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class TicTacToe extends JFrame implements ActionListener {
     private static final Logger log = Logger.getLogger(TicTacToe.class.getName());
+    private static final Pattern PLAYERS = Pattern.compile("(?<Player1>Human|Robot).+(?<Player2>Human|Robot)");
+
     private final Board board = new Board(this);
     private final StatusBar statusBar = new StatusBar();
     private final Toolbar toolbar = new Toolbar(this);
@@ -28,6 +32,7 @@ public class TicTacToe extends JFrame implements ActionListener {
         setTitle("Tic Tac Toe");
         setResizable(false);
         setVisible(true);
+        setJMenuBar(new AppMenu(this::processMenu));
     }
 
     @Override
@@ -42,6 +47,21 @@ public class TicTacToe extends JFrame implements ActionListener {
             move((Cell) button);
         }
         log.exiting(TicTacToe.class.getName(), "actionPerformed", board.getGameState());
+    }
+
+    void processMenu(final ActionEvent e) {
+        log.entering(TicTacToe.class.getName(), "processMenu", e.getSource());
+        final var item = (JMenuItem) e.getSource();
+        final var matcher = PLAYERS.matcher(item.getText());
+        if (matcher.matches()) {
+            toolbar.players[0].setText(matcher.group("Player1"));
+            toolbar.players[1].setText(matcher.group("Player2"));
+            reset();
+            start();
+        } else {
+            this.dispose();
+        }
+        log.exiting(TicTacToe.class.getName(), "processMenu", board.getGameState());
     }
 
     public void move(final Cell cell) {
@@ -67,7 +87,7 @@ public class TicTacToe extends JFrame implements ActionListener {
     }
 
     private void checkRobot() {
-        if (isRobotsTurn()) {
+        if (isRobotsTurn() && board.isPlaying()) {
             board.getRandomFreeCell().doClick();
         }
     }

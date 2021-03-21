@@ -1,1 +1,6 @@
 type: edu
+files:
+- name: src/tictactoe/AppMenu.java
+  visible: true
+- name: logging.properties
+  visible: true
