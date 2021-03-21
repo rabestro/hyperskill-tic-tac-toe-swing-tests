@@ -12,12 +12,14 @@ public class TicTacToe extends JFrame implements ActionListener {
     private static final Logger log = Logger.getLogger(TicTacToe.class.getName());
     private final Board board = new Board(this);
     private final StatusBar statusBar = new StatusBar(this::reset);
+    private final Toolbar toolbar = new Toolbar(this);
 
     private int currentPlayer;
 
     {
         log.info("tictactoe.TicTacToe is started.");
         add(board, BorderLayout.CENTER);
+        add(toolbar, BorderLayout.NORTH);
         add(statusBar, BorderLayout.SOUTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 450);

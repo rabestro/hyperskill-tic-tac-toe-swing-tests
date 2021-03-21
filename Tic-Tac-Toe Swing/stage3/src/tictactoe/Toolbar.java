@@ -12,8 +12,10 @@ public class Toolbar extends JPanel {
 
     Toolbar(final ActionListener listener) {
         setLayout(new GridLayout(1, 3));
-        add(players[0]);
+        players[0].setName("ButtonPlayer1");
+        players[1].setName("ButtonPlayer2");
         add(start);
+        add(players[0]);
         add(players[1]);
         setPreferredSize(new Dimension(450, 30));
         setVisible(true);
