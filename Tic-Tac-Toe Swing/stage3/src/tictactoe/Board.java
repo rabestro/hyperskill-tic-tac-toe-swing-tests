@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -64,7 +65,7 @@ public class Board extends JPanel  {
     }
 
     private boolean isEmpty(final int index) {
-        return cells.get(index).getText().isEmpty();
+        return cells.get(index).getText().isBlank();
     }
 
     private boolean hasTrips(Cell.Mark mark) {
@@ -83,6 +84,14 @@ public class Board extends JPanel  {
 
     public int[] getFreeCells() {
         return IntStream.range(0, 9).filter(this::isEmpty).toArray();
+    }
+
+    public Cell getRandomFreeCell() {
+        final var freeCells = cells.stream()
+                .filter(cell -> cell.getText().equals(Cell.Mark.EMPTY.getMark()))
+                .collect(Collectors.toList());
+        Collections.shuffle(freeCells);
+        return freeCells.get(0);
     }
 
     public enum State {

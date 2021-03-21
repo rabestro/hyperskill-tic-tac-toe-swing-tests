@@ -56,12 +56,24 @@ public class TicTacToe extends JFrame implements ActionListener {
         if (board.getGameState() != Board.State.PLAYING) {
             board.setPlaying(false);
         }
+        checkRobot();
     }
 
     public void start() {
         toolbar.startGame();
         statusBar.setMessage(Board.State.PLAYING);
         board.setPlaying(true);
+        checkRobot();
+    }
+
+    private void checkRobot() {
+        if (isRobotsTurn()) {
+            board.getRandomFreeCell().doClick();
+        }
+    }
+
+    private boolean isRobotsTurn() {
+        return toolbar.players[currentPlayer].getText().equals("Robot");
     }
 
     public void reset() {

@@ -9,6 +9,7 @@ public class PlayerChooser extends JButton implements ActionListener {
     {
         setText(Type.Human.name());
         addActionListener(this);
+        setEnabled(true);
         setVisible(true);
     }
 

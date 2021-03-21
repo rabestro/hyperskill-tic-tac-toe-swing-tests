@@ -1,6 +1,4 @@
 type: edu
 files:
-- name: src/tictactoe/Toolbar.java
-  visible: true
-- name: src/tictactoe/PlayerChooser.java
+- name: src/tictactoe/ApplicationRunner.java
   visible: true

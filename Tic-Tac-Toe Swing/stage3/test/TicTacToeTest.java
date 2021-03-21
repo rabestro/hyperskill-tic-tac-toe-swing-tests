@@ -279,6 +279,7 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
+
     private static void assertEquals(
             final Object expected,
             final Object actual,
