@@ -53,7 +53,11 @@ public class TicTacToeTest extends SwingTest {
     @SwingComponent
     private JButtonFixture buttonC3;
     @SwingComponent
-    private JButtonFixture buttonReset;
+    private JButtonFixture buttonStartReset;
+    @SwingComponent
+    private JButtonFixture buttonPlayer1;
+    @SwingComponent
+    private JButtonFixture buttonPlayer2;
     @SwingComponent
     private JLabelFixture labelStatus;
 
@@ -77,7 +81,7 @@ public class TicTacToeTest extends SwingTest {
                 "A3", buttonA3, "B3", buttonB3, "C3", buttonC3,
                 "A2", buttonA2, "B2", buttonB2, "C2", buttonC2,
                 "A1", buttonA1, "B1", buttonB1, "C1", buttonC1,
-                "RS", buttonReset);
+                "RS", buttonStartReset);
         return correct();
     }
 
@@ -149,7 +153,7 @@ public class TicTacToeTest extends SwingTest {
 
     @DynamicTest(feedback = "An JButton with name 'ButtonReset' should be added and enabled")
     CheckResult test8() {
-        buttonReset.requireEnabled();
+        buttonStartReset.requireEnabled();
         return correct();
     }
 
@@ -164,7 +168,7 @@ public class TicTacToeTest extends SwingTest {
 
     @DynamicTest(feedback = "After the reset button pressed the board should be empty")
     CheckResult test12() {
-        buttonReset.click();
+        buttonStartReset.click();
         cells().forEach(cell -> cell.requireText(EMPTY_CELL));
         labelStatus.requireText(GAME_STATE.get("E"));
         return correct();
