@@ -81,13 +81,13 @@ public class TicTacToeTest extends SwingTest {
                 "A3", buttonA3, "B3", buttonB3, "C3", buttonC3,
                 "A2", buttonA2, "B2", buttonB2, "C2", buttonC2,
                 "A1", buttonA1, "B1", buttonB1, "C1", buttonC1,
-                "RS", buttonStartReset);
+                "SR", buttonStartReset);
         return correct();
     }
 
-    @DynamicTest(feedback = "Cells should be enabled")
+    @DynamicTest(feedback = "Cells should be disabled before the game started")
     CheckResult test2() {
-        cells().forEach(this::requireEnabled);
+        cells().forEach(this::requireDisabled);
         return correct();
     }
 
@@ -151,14 +151,39 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "An JButton with name 'ButtonReset' should be added and enabled")
+    @DynamicTest(feedback = "An JButton with name 'ButtonStartReset' should be added and enabled")
     CheckResult test8() {
         buttonStartReset.requireEnabled();
         return correct();
     }
 
-    @DynamicTest(feedback = "The Game")
+    @DynamicTest(feedback = "The component 'ButtonStartReset' should have text 'Start' after program start")
+    CheckResult test9() {
+        buttonStartReset.requireText("Start");
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After click on 'Start' the text of button should changed to 'Reset'")
     CheckResult test10() {
+        buttonStartReset.click();
+        buttonStartReset.requireText("Reset");
+        return correct();
+    }
+
+    @DynamicTest(feedback = "Cells should be enable after the game started")
+    CheckResult test12() {
+        cells().forEach(this::requireEnabled);
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After the game started the status should changed")
+    CheckResult test13() {
+        labelStatus.requireText(GAME_STATE.get("P"));
+        return correct();
+    }
+
+    @DynamicTest(feedback = "The first player should have 'X' mark and the second 'O'")
+    CheckResult test14() {
         buttonA1.click();
         buttonA1.requireText(MARK_X);
         buttonA3.click();
@@ -167,38 +192,42 @@ public class TicTacToeTest extends SwingTest {
     }
 
     @DynamicTest(feedback = "After the reset button pressed the board should be empty")
-    CheckResult test12() {
+    CheckResult test16() {
         buttonStartReset.click();
         cells().forEach(cell -> cell.requireText(EMPTY_CELL));
         labelStatus.requireText(GAME_STATE.get("E"));
         return correct();
     }
 
-    private String[][] humanVsHuman = new String[][]{
+    private final String[][] humanVsHuman = new String[][]{
+            {"SR", "_________", "P"},
             {"A1", "______X__", "P"}, {"B1", "______XO_", "P"},
             {"C3", "__X___XO_", "P"}, {"B3", "_OX___XO_", "P"},
-            {"B2", "_OX_X_XO_", "X"}, {"RS", "_________", "E"},
+            {"B2", "_OX_X_XO_", "X"}, {"SR", "_________", "E"},
 
+            {"SR", "_________", "P"},
             {"B2", "____X____", "P"}, {"A1", "____X_O__", "P"},
             {"C1", "____X_O_X", "P"}, {"A3", "O___X_O_X", "P"},
             {"A2", "O__XX_O_X", "P"}, {"C2", "O__XXOO_X", "P"},
             {"B3", "OX_XXOO_X", "P"}, {"B1", "OX_XXOOOX", "P"},
             {"C3", "OXXXXOOOX", "D"}, {"B2", "OXXXXOOOX", "D"},
-            {"B2", "OXXXXOOOX", "D"}, {"RS", "_________", "E"},
+            {"B2", "OXXXXOOOX", "D"}, {"SR", "_________", "E"},
 
+            {"SR", "_________", "P"},
             {"A2", "___X_____", "P"}, {"B2", "___XO____", "P"},
             {"A1", "___XO_X__", "P"}, {"A3", "O__XO_X__", "P"},
             {"C1", "O__XO_X_X", "P"}, {"B1", "O__XO_XOX", "P"},
             {"C2", "O__XOXXOX", "P"}, {"B3", "OO_XOXXOX", "O"},
             {"A3", "OO_XOXXOX", "O"}, {"C3", "OO_XOXXOX", "O"},
             {"C3", "OO_XOXXOX", "O"}, {"B2", "OO_XOXXOX", "O"},
-            {"RS", "_________", "E"}, {"RS", "_________", "E"},
+            {"SR", "_________", "E"}, {"SR", "_________", "P"},
+            {"SR", "_________", "E"}, {"SR", "_________", "P"},
 
             {"C1", "________X", "P"}, {"B1", "_______OX", "P"},
             {"B2", "____X__OX", "P"}, {"C2", "____XO_OX", "P"},
             {"A3", "X___XO_OX", "X"}, {"B3", "X___XO_OX", "X"},
             {"C3", "X___XO_OX", "X"}, {"A1", "X___XO_OX", "X"},
-            {"A1", "X___XO_OX", "X"}, {"RS", "_________", "E"},
+            {"A1", "X___XO_OX", "X"}, {"SR", "_________", "E"},
     };
 
     @DynamicTest(data = "humanVsHuman", feedback = "Incorrect state of the game")
