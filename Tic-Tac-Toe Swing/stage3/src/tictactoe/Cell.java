@@ -15,6 +15,7 @@ class Cell extends JButton {
         addActionListener(listener);
         setFocusPainted(false);
         setVisible(true);
+        setEnabled(false);
     }
 
     void clear() {

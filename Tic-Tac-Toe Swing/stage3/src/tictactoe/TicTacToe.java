@@ -1,5 +1,6 @@
 package tictactoe;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,7 +12,7 @@ import java.util.logging.Logger;
 public class TicTacToe extends JFrame implements ActionListener {
     private static final Logger log = Logger.getLogger(TicTacToe.class.getName());
     private final Board board = new Board(this);
-    private final StatusBar statusBar = new StatusBar(this::reset);
+    private final StatusBar statusBar = new StatusBar();
     private final Toolbar toolbar = new Toolbar(this);
 
     private int currentPlayer;
@@ -32,7 +33,23 @@ public class TicTacToe extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(final ActionEvent e) {
         log.entering(TicTacToe.class.getName(), "actionPerformed", e);
-        final var cell = (Cell) e.getSource();
+        final var button = (JButton) e.getSource();
+        if (button.getText().equals("Reset")) {
+            reset();
+        } else if (button.getText().equals("Start")) {
+            start();
+        } else {
+            move((Cell) button);
+        }
+        log.exiting(TicTacToe.class.getName(), "actionPerformed", board.getGameState());
+    }
+
+    private static int getIndex(final String notation) {
+        log.info(notation);
+        return ('3' - notation.charAt(1)) * 3 - 'A' + notation.charAt(0);
+    }
+
+    public void move(final Cell cell) {
         final var index = getIndex(cell.getName().substring(6));
         log.log(Level.INFO, "Index: {0}, Status: {1}",
                 new Object[]{index, board.getGameState().getMessage()});
@@ -44,14 +61,17 @@ public class TicTacToe extends JFrame implements ActionListener {
         }
     }
 
-    private static int getIndex(final String notation) {
-        log.info(notation);
-        return ('3' - notation.charAt(1)) * 3 - 'A' + notation.charAt(0);
+    public void start() {
+        toolbar.startGame();
+        statusBar.setMessage(Board.State.PLAYING);
+        board.setPlaying(true);
     }
 
-    public void reset(final ActionEvent e) {
+    public void reset() {
         board.clear();
         currentPlayer = 0;
+        toolbar.resetGame();
         statusBar.setMessage(Board.State.NOT_STARTED);
+        board.setPlaying(false);
     }
 }

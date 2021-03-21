@@ -34,6 +34,11 @@ public class Board extends JPanel  {
         cells.forEach(Cell::clear);
     }
 
+    void setPlaying(final boolean isPlaying) {
+        cells.forEach(cell -> cell.setEnabled(isPlaying));
+
+    }
+
     public State getGameState() {
         if (isEmpty()) {
             return State.NOT_STARTED;
