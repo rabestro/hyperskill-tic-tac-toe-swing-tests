@@ -70,18 +70,21 @@ public class TicTacToe extends JFrame implements ActionListener {
 
         if (cell.isEmpty() && board.isPlaying()) {
             cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
-            statusBar.setMessage(board.getGameState());
-            currentPlayer = 1 - currentPlayer;
         }
         if (board.getGameState() != Board.State.PLAYING) {
             board.setPlaying(false);
+        } else {
+            currentPlayer = 1 - currentPlayer;
         }
+        final var mark = currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O;
+        statusBar.setMessage(board.getGameState(), currentPlayer(), mark.getMark());
+
         checkRobot();
     }
 
     public void start() {
         toolbar.startGame();
-        statusBar.setMessage(Board.State.PLAYING);
+        statusBar.setMessage(Board.State.PLAYING, currentPlayer(), Cell.Mark.X.getMark());
         board.setPlaying(true);
         checkRobot();
     }
@@ -92,6 +95,10 @@ public class TicTacToe extends JFrame implements ActionListener {
         }
     }
 
+    private String currentPlayer() {
+        return toolbar.players[currentPlayer].getText();
+    }
+
     private boolean isRobotsTurn() {
         return toolbar.players[currentPlayer].getText().equals("Robot");
     }
@@ -100,7 +107,7 @@ public class TicTacToe extends JFrame implements ActionListener {
         board.clear();
         currentPlayer = 0;
         toolbar.resetGame();
-        statusBar.setMessage(Board.State.NOT_STARTED);
+        statusBar.setMessage(Board.State.EMPTY);
         board.setPlaying(false);
     }
 }

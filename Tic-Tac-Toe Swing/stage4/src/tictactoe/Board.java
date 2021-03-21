@@ -42,7 +42,7 @@ public class Board extends JPanel  {
 
     public State getGameState() {
         if (isEmpty()) {
-            return State.NOT_STARTED;
+            return State.EMPTY;
         }
         if (hasTrips(Cell.Mark.X)) {
             return State.X_WINS;
@@ -79,7 +79,7 @@ public class Board extends JPanel  {
 
     public boolean isPlaying() {
         final var state = getGameState();
-        return state == State.NOT_STARTED || state == State.PLAYING;
+        return state == State.EMPTY || state == State.PLAYING;
     }
 
     public int[] getFreeCells() {
@@ -95,12 +95,11 @@ public class Board extends JPanel  {
     }
 
     public enum State {
-        NOT_STARTED("The game is not started"),
-        PLAYING("The game is playing"),
+        EMPTY("The game is not started"),
+        PLAYING("The turn of {0} Player ({1})"),
         DRAW("Draw"),
-        X_WINS("X wins"),
-        O_WINS("O wins"),
-        IMPOSSIBLE("Impossible");
+        X_WINS("{0} Player (X) wins"),
+        O_WINS("{0} Player (O) wins");
 
         final String message;
 
