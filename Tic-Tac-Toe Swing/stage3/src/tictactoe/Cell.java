@@ -5,17 +5,21 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 
 class Cell extends JButton {
-    private static final Font COMIC_SANS = new Font("Comic Sans", Font.BOLD, 50);
-    private static final String EMPTY_CELL = " ";
-
     Cell(final String name, final ActionListener listener) {
-        super(EMPTY_CELL);
+        super(Mark.EMPTY.getMark());
+        addActionListener(listener);
         setName("Button" + name);
         setFont(COMIC_SANS);
-        addActionListener(listener);
         setFocusPainted(false);
         setVisible(true);
         setEnabled(false);
+    }
+
+    private static final Font COMIC_SANS = new Font("Comic Sans", Font.BOLD, 50);
+
+    int getIndex() {
+        final var notation = this.getName().substring(6);
+        return ('3' - notation.charAt(1)) * 3 - 'A' + notation.charAt(0);
     }
 
     void clear() {
@@ -35,12 +39,12 @@ class Cell extends JButton {
 
         private String mark;
 
-        public String getMark() {
-            return mark;
-        }
-
         Mark(String mark) {
             this.mark = mark;
+        }
+
+        public String getMark() {
+            return mark;
         }
     }
 }

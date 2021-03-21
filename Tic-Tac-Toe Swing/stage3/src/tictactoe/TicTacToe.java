@@ -44,15 +44,9 @@ public class TicTacToe extends JFrame implements ActionListener {
         log.exiting(TicTacToe.class.getName(), "actionPerformed", board.getGameState());
     }
 
-    private static int getIndex(final String notation) {
-        log.info(notation);
-        return ('3' - notation.charAt(1)) * 3 - 'A' + notation.charAt(0);
-    }
-
     public void move(final Cell cell) {
-        final var index = getIndex(cell.getName().substring(6));
         log.log(Level.INFO, "Index: {0}, Status: {1}",
-                new Object[]{index, board.getGameState().getMessage()});
+                new Object[]{cell.getIndex(), board.getGameState().getMessage()});
 
         if (cell.isEmpty() && board.isPlaying()) {
             cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
