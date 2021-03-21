@@ -23,6 +23,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     {
         log.info("tictactoe.TicTacToe is started.");
+        setJMenuBar(new AppMenu(this::processMenu));
         add(board, BorderLayout.CENTER);
         add(toolbar, BorderLayout.NORTH);
         add(statusBar, BorderLayout.SOUTH);
@@ -32,7 +33,6 @@ public class TicTacToe extends JFrame implements ActionListener {
         setTitle("Tic Tac Toe");
         setResizable(false);
         setVisible(true);
-        setJMenuBar(new AppMenu(this::processMenu));
     }
 
     @Override

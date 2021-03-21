@@ -9,11 +9,6 @@ import java.awt.event.KeyEvent;
 public class AppMenu extends JMenuBar {
 
     public AppMenu(final ActionListener actionListener) {
-        final var menuFile = new JMenu("Game");
-        menuFile.setName("MenuGame");
-        menuFile.setMnemonic(KeyEvent.VK_G);
-        add(menuFile);
-
         final var menuItemHH = new JMenuItem("Human vs Human", KeyEvent.VK_H);
         menuItemHH.setName("MenuHumanHuman");
         menuItemHH.addActionListener(actionListener);
@@ -34,12 +29,19 @@ public class AppMenu extends JMenuBar {
         menuItemExit.setName("MenuExit");
         menuItemExit.addActionListener(actionListener);
 
-        menuFile.add(menuItemHH);
-        menuFile.add(menuItemHR);
-        menuFile.add(menuItemRH);
-        menuFile.add(menuItemRR);
-        menuFile.addSeparator();
-        menuFile.add(menuItemExit);
+        final var menuGame = new JMenu("Game");
+        menuGame.setName("MenuGame");
+        menuGame.setMnemonic(KeyEvent.VK_G);
+
+        menuGame.add(menuItemHH);
+        menuGame.add(menuItemHR);
+        menuGame.add(menuItemRH);
+        menuGame.add(menuItemRR);
+        menuGame.addSeparator();
+        menuGame.add(menuItemExit);
+
+        add(menuGame);
     }
+
 
 }
