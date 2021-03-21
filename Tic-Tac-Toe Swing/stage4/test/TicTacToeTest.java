@@ -1,6 +1,5 @@
 import org.assertj.swing.fixture.JButtonFixture;
 import org.assertj.swing.fixture.JLabelFixture;
-import org.assertj.swing.fixture.JMenuItemFixture;
 import org.hyperskill.hstest.dynamic.DynamicTest;
 import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
 import org.hyperskill.hstest.stage.SwingTest;
@@ -25,11 +24,16 @@ public class TicTacToeTest extends SwingTest {
     private static final String MARK_X = "X";
     private static final String MARK_O = "O";
     private static final Map<String, String> GAME_STATE = Map.of(
-            "E", "The game is not started",
-            "P", "The game is playing",
-            "X", "X wins",
-            "O", "O wins",
-            "D", "Draw");
+            "--", "The game is not started",
+            "H1", "The turn of Human Player (X)",
+            "R1", "The turn of Robot Player (X)",
+            "H2", "The turn of Human Player (O)",
+            "R2", "The turn of Robot Player (O)",
+            "HX", "The Human Player (X) wins",
+            "RX", "The Robot Player (X) wins",
+            "HO", "The Human Player (O) wins",
+            "RO", "The Robot Player (O) wins",
+            "DW", "Draw");
 
     public TicTacToeTest() {
         super(new TicTacToe());
@@ -179,31 +183,41 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "After the game started the status should changed")
+    @DynamicTest(feedback = "After the game started the status should indicate that the first player has turn")
     CheckResult test13() {
-        labelStatus.requireText(GAME_STATE.get("P"));
+        labelStatus.requireText(GAME_STATE.get("H1"));
         return correct();
     }
 
-    @DynamicTest(feedback = "Player's chooser component should be disabled after the game started")
+    @DynamicTest(feedback = "Player's chooser component should be disabled after the game started." +
+            " Expected text: 'The turn of Human Player (X)'")
     CheckResult test14() {
         buttonPlayer1.requireDisabled();
         buttonPlayer2.requireDisabled();
         return correct();
     }
 
-    @DynamicTest(feedback = "The first player should have 'X' mark and the second 'O'")
+    @DynamicTest(feedback = "After the very first move should be mark 'X' on the field" +
+            " and status should indicate the turn of second player")
     CheckResult test15() {
         buttonA1.click();
         buttonA1.requireText(MARK_X);
+        labelStatus.requireText(GAME_STATE.get("H2"));
+        return correct();
+    }
+
+    @DynamicTest(feedback = "After the second move the mark 'O' should appear on the selected field" +
+            " and status should indicate the turn of first player")
+    CheckResult test16() {
         buttonA3.click();
         buttonA3.requireText(MARK_O);
+        labelStatus.requireText(GAME_STATE.get("H1"));
         return correct();
     }
 
     @DynamicTest(feedback = "After the 'Reset' button is pressed and game finished " +
             "the Player's chooser components should be enabled")
-    CheckResult test16() {
+    CheckResult test17() {
         buttonStartReset.click();
         buttonPlayer1.requireEnabled();
         buttonPlayer2.requireEnabled();
@@ -212,41 +226,41 @@ public class TicTacToeTest extends SwingTest {
 
     @DynamicTest(feedback = "After the reset button pressed the board should be empty" +
             " and status should indicate that 'The game is not started'")
-    CheckResult test18() {
+    CheckResult test19() {
         cells().forEach(cell -> cell.requireText(EMPTY_CELL));
         labelStatus.requireText(GAME_STATE.get("E"));
         return correct();
     }
 
     private final String[][] humanVsHuman = new String[][]{
-            {"SR", "_________", "P"},
-            {"A1", "______X__", "P"}, {"B1", "______XO_", "P"},
-            {"C3", "__X___XO_", "P"}, {"B3", "_OX___XO_", "P"},
-            {"B2", "_OX_X_XO_", "X"}, {"SR", "_________", "E"},
+            {"SR", "_________", "H1"},
+            {"A1", "______X__", "H2"}, {"B1", "______XO_", "H1"},
+            {"C3", "__X___XO_", "H2"}, {"B3", "_OX___XO_", "H1"},
+            {"B2", "_OX_X_XO_", "HX"}, {"SR", "_________", "--"},
 
-            {"SR", "_________", "P"},
-            {"B2", "____X____", "P"}, {"A1", "____X_O__", "P"},
-            {"C1", "____X_O_X", "P"}, {"A3", "O___X_O_X", "P"},
-            {"A2", "O__XX_O_X", "P"}, {"C2", "O__XXOO_X", "P"},
-            {"B3", "OX_XXOO_X", "P"}, {"B1", "OX_XXOOOX", "P"},
-            {"C3", "OXXXXOOOX", "D"}, {"B2", "OXXXXOOOX", "D"},
-            {"B2", "OXXXXOOOX", "D"}, {"SR", "_________", "E"},
+            {"SR", "_________", "H1"},
+            {"B2", "____X____", "H2"}, {"A1", "____X_O__", "H1"},
+            {"C1", "____X_O_X", "H2"}, {"A3", "O___X_O_X", "H1"},
+            {"A2", "O__XX_O_X", "H2"}, {"C2", "O__XXOO_X", "H1"},
+            {"B3", "OX_XXOO_X", "H2"}, {"B1", "OX_XXOOOX", "H1"},
+            {"C3", "OXXXXOOOX", "DW"}, {"B2", "OXXXXOOOX", "DW"},
+            {"B2", "OXXXXOOOX", "DW"}, {"SR", "_________", "--"},
 
-            {"SR", "_________", "P"},
-            {"A2", "___X_____", "P"}, {"B2", "___XO____", "P"},
-            {"A1", "___XO_X__", "P"}, {"A3", "O__XO_X__", "P"},
-            {"C1", "O__XO_X_X", "P"}, {"B1", "O__XO_XOX", "P"},
-            {"C2", "O__XOXXOX", "P"}, {"B3", "OO_XOXXOX", "O"},
-            {"A3", "OO_XOXXOX", "O"}, {"C3", "OO_XOXXOX", "O"},
-            {"C3", "OO_XOXXOX", "O"}, {"B2", "OO_XOXXOX", "O"},
-            {"SR", "_________", "E"}, {"SR", "_________", "P"},
-            {"SR", "_________", "E"}, {"SR", "_________", "P"},
+            {"SR", "_________", "H1"},
+            {"A2", "___X_____", "H2"}, {"B2", "___XO____", "H1"},
+            {"A1", "___XO_X__", "H2"}, {"A3", "O__XO_X__", "H1"},
+            {"C1", "O__XO_X_X", "H2"}, {"B1", "O__XO_XOX", "H1"},
+            {"C2", "O__XOXXOX", "H2"}, {"B3", "OO_XOXXOX", "HO"},
+            {"A3", "OO_XOXXOX", "HO"}, {"C3", "OO_XOXXOX", "HO"},
+            {"C3", "OO_XOXXOX", "HO"}, {"B2", "OO_XOXXOX", "HO"},
+            {"SR", "_________", "--"}, {"SR", "_________", "H1"},
+            {"SR", "_________", "--"}, {"SR", "_________", "H1"},
 
-            {"C1", "________X", "P"}, {"B1", "_______OX", "P"},
-            {"B2", "____X__OX", "P"}, {"C2", "____XO_OX", "P"},
-            {"A3", "X___XO_OX", "X"}, {"B3", "X___XO_OX", "X"},
-            {"C3", "X___XO_OX", "X"}, {"A1", "X___XO_OX", "X"},
-            {"A1", "X___XO_OX", "X"}, {"SR", "_________", "E"},
+            {"C1", "________X", "H2"}, {"B1", "_______OX", "H1"},
+            {"B2", "____X__OX", "H2"}, {"C2", "____XO_OX", "H1"},
+            {"A3", "X___XO_OX", "HX"}, {"B3", "X___XO_OX", "HX"},
+            {"C3", "X___XO_OX", "HX"}, {"A1", "X___XO_OX", "HX"},
+            {"A1", "X___XO_OX", "HX"}, {"SR", "_________", "--"},
     };
 
     @DynamicTest(data = "humanVsHuman", feedback = "Incorrect state of the game")
@@ -281,7 +295,6 @@ public class TicTacToeTest extends SwingTest {
         buttonPlayer2.requireText("Robot");
         return correct();
     }
-
 
     private static void assertEquals(
             final Object expected,
