@@ -174,7 +174,7 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    private String[][] testGame = new String[][]{
+    private String[][] humanVsHuman = new String[][]{
             {"A1", "______X__", "P"}, {"B1", "______XO_", "P"},
             {"C3", "__X___XO_", "P"}, {"B3", "_OX___XO_", "P"},
             {"B2", "_OX_X_XO_", "X"}, {"RS", "_________", "E"},
@@ -201,7 +201,7 @@ public class TicTacToeTest extends SwingTest {
             {"A1", "X___XO_OX", "X"}, {"RS", "_________", "E"},
     };
 
-    @DynamicTest(data = "testGame", feedback = "Incorrect state of the game")
+    @DynamicTest(data = "humanVsHuman", feedback = "Incorrect state of the game")
     CheckResult test20(final String cell, final String position, final String state) {
         board.get(cell).click();
         labelStatus.requireText(GAME_STATE.get(state));

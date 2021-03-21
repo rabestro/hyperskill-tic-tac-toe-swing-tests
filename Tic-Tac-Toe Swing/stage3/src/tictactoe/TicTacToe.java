@@ -59,6 +59,9 @@ public class TicTacToe extends JFrame implements ActionListener {
             statusBar.setMessage(board.getGameState());
             currentPlayer = 1 - currentPlayer;
         }
+        if (board.getGameState() != Board.State.PLAYING) {
+            board.setPlaying(false);
+        }
     }
 
     public void start() {
