@@ -102,13 +102,13 @@ public class TicTacToeTest extends SwingTest {
         rows = buttons.stream().mapToInt(JButton::getY).distinct().sorted().toArray();
 
         assertEquals(3, cols.length,
-                "The board should have only 3 columns. "
+                "The board should have exactly 3 columns. "
                         + "The coordinates for columns are {0}, "
                         + "the buttons have {1} different coordinates for columns",
                 Arrays.toString(cols), cols.length);
 
         assertEquals(3, rows.length,
-                "The board should have only 3 rows. "
+                "The board should have exactly 3 rows. "
                         + "The coordinates for rows are {0}, "
                         + "The buttons have {0} different coordinates for rows",
                 Arrays.toString(rows), rows.length);

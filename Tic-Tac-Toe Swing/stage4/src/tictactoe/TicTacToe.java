@@ -75,7 +75,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     public void robotMove(final Cell cell) {
         log.entering(TicTacToe.class.getName(), "robotMove", cell);
-        if (!cell.isEmpty() || !board.isPlaying()) {
+        if (!cell.isEmpty() || !board.isPlaying() || !isRobotsTurn()) {
             log.warning("An illegal move from the Robot");
             return;
         }
