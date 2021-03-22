@@ -64,10 +64,6 @@ public class Board extends JPanel  {
         return cells.stream().map(JButton::getText).noneMatch(String::isBlank);
     }
 
-    private boolean isEmpty(final int index) {
-        return cells.get(index).getText().isBlank();
-    }
-
     private boolean hasTrips(Cell.Mark mark) {
         Predicate<int[]> threeInRow = line -> Arrays.stream(line)
                 .mapToObj(cells::get)
@@ -80,10 +76,6 @@ public class Board extends JPanel  {
     public boolean isPlaying() {
         final var state = getGameState();
         return state == State.EMPTY || state == State.PLAYING;
-    }
-
-    public int[] getFreeCells() {
-        return IntStream.range(0, 9).filter(this::isEmpty).toArray();
     }
 
     public Cell getRandomFreeCell() {

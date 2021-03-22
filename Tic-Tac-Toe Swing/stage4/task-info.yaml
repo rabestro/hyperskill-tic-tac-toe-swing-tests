@@ -4,3 +4,5 @@ files:
   visible: true
 - name: logging.properties
   visible: true
+- name: src/tictactoe/Easy.java
+  visible: true

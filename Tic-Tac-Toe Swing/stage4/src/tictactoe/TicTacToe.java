@@ -43,7 +43,7 @@ public class TicTacToe extends JFrame implements ActionListener {
         } else if (button.getText().equals("Start")) {
             start();
         } else {
-            move((Cell) button);
+            humanMove((Cell) button);
         }
         log.exiting(TicTacToe.class.getName(), "actionPerformed", board.getGameState());
     }
@@ -63,11 +63,27 @@ public class TicTacToe extends JFrame implements ActionListener {
         log.exiting(TicTacToe.class.getName(), "processMenu", board.getGameState());
     }
 
-    public void move(final Cell cell) {
-        log.entering(TicTacToe.class.getName(), "move", cell);
-        if (!cell.isEmpty() || !board.isPlaying()) {
+    public void humanMove(final Cell cell) {
+        log.entering(TicTacToe.class.getName(), "humanMove", cell);
+        if (!cell.isEmpty() || !board.isPlaying() || isRobotsTurn()) {
+            log.warning("An illegal move from the Human");
             return;
         }
+        move(cell);
+        log.exiting(TicTacToe.class.getName(), "humanMove", board.getGameState());
+    }
+
+    public void robotMove(final Cell cell) {
+        log.entering(TicTacToe.class.getName(), "robotMove", cell);
+        if (!cell.isEmpty() || !board.isPlaying()) {
+            log.warning("An illegal move from the Robot");
+            return;
+        }
+        move(cell);
+        log.exiting(TicTacToe.class.getName(), "robotMove", board.getGameState());
+    }
+
+    private void move(final Cell cell) {
         cell.setMark(currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O);
         if (board.getGameState() != Board.State.PLAYING) {
             board.setPlaying(false);
@@ -76,9 +92,8 @@ public class TicTacToe extends JFrame implements ActionListener {
         }
         final var mark = currentPlayer == 0 ? Cell.Mark.X : Cell.Mark.O;
         statusBar.setMessage(board.getGameState(), currentPlayer(), mark.getMark());
-
         checkRobot();
-        log.exiting(TicTacToe.class.getName(), "move", board.getGameState());
+
     }
 
     public void start() {
@@ -90,7 +105,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     private void checkRobot() {
         if (isRobotsTurn() && board.isPlaying()) {
-            board.getRandomFreeCell().doClick();
+            new Thread(new Easy(board, this::robotMove)).start();
         }
     }
 
