@@ -7,16 +7,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class TicTacToe extends JFrame implements ActionListener {
     private static final Logger log = Logger.getLogger(TicTacToe.class.getName());
-    private static final Pattern PLAYERS = Pattern.compile("(?<Player1>Human|Robot).+(?<Player2>Human|Robot)");
+    private static final Pattern PLAYERS = Pattern.compile(
+            "(?<Player1>Human|Robot).+(?<Player2>Human|Robot)");
+    private static final long ROBOT_DELAY = 1000;
 
     private final Board board = new Board(this);
     private final StatusBar statusBar = new StatusBar();
     private final Toolbar toolbar = new Toolbar(this);
+    private Timer robotTimer;
 
     private int currentPlayer;
 
@@ -53,9 +58,9 @@ public class TicTacToe extends JFrame implements ActionListener {
         final var item = (JMenuItem) e.getSource();
         final var matcher = PLAYERS.matcher(item.getText());
         if (matcher.matches()) {
+            reset();
             toolbar.players[0].setText(matcher.group("Player1"));
             toolbar.players[1].setText(matcher.group("Player2"));
-            reset();
             start();
         } else {
             this.dispose();
@@ -100,12 +105,18 @@ public class TicTacToe extends JFrame implements ActionListener {
         toolbar.startGame();
         statusBar.setMessage(Board.State.PLAYING, currentPlayer(), Cell.Mark.X.getMark());
         board.setPlaying(true);
+        robotTimer = new Timer("Robot", true);
         checkRobot();
     }
 
     private void checkRobot() {
         if (isRobotsTurn() && board.isPlaying()) {
-            new Thread(new Easy(board, this::robotMove)).start();
+            robotTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    robotMove(board.getRandomFreeCell());
+                }
+            }, ROBOT_DELAY);
         }
     }
 
@@ -118,6 +129,7 @@ public class TicTacToe extends JFrame implements ActionListener {
     }
 
     public void reset() {
+        robotTimer.cancel();
         board.clear();
         currentPlayer = 0;
         toolbar.resetGame();
