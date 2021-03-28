@@ -1,13 +1,30 @@
 <html>
 <h2>Description</h2>
 
-<p>In this project, you will create a simple board game called Tic Tac Toe using Swing for a graphical user interface (GUI). The program will allow you to play both with another player and with a computer. You can also configure the game so that the computer plays against itself, and you will observe the process of the game.</p>
+<p>Tic-tac-toe is known all over the world. Each country may have its own version of the name, sometimes the rules are different, but the essence of the game remains the same. Below are the main rules that may be familiar to you since childhood.</p>
+
+<p>Tic-tac-toe is a game played by two players on a 3x3 grid. One of the players is &#39;X&#39;, and the other player is &#39;O&#39;. X plays first, then O takes the next turn, and so on. The players write &#39;X&#39; and &#39;O&#39; on a 3x3 field. The first player that puts 3 X&#39;s or 3 O&#39;s in a straight line (including diagonals) wins the game.</p>
+
+<p>In this project, you will create a Tic-Tac-Toe game with a graphical user interface (GUI) using the Swing framework. The program will allow you to play both against another player or against the computer. You can also configure the game so that the computer plays against itself, and you will observe the process of the game.</p>
 
 <h2>Objectives</h2>
 
-<p>In the first step, you will need to create a simple window with a field for the game. The field in the game consists of 9 cells - three rows of three columns. Each cell is a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JButton.html" rel="noopener noreferrer nofollow">JButton</a> for which you must give a specific name. We will use <a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" rel="noopener noreferrer nofollow">algebraic notation</a> to denote each cell in the field. You need to set the name of each component using the JButton::setName method and JButton::setText to display the name on the field as in the example.</p>
+<p><span style="background-color:transparent; color:#000000; font-size:11pt; font-variant:normal">Your first task is to create the main window of the program and the field for the game. In Swing, the class that represents an empty window is </span><strong style="background-color:transparent; color:#000000; font-size:11pt; font-variant:normal">JFrame</strong><span style="background-color:transparent; color:#000000; font-size:11pt; font-variant:normal">. To improve the basic window, you should extend this class and write your own logic for the window. Here is an example of code in the constructor of the class that extends JFrame:</span></p>
+
+<pre>
+<code class="language-java">setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+setTitle("Tic Tac Toe");
+setResizable(false);
+setSize(450, 450);
+setVisible(true);
+</code></pre>
+
+<p>In addition to creating a window, you need to create a field with nine cells, which we will place on a field in three rows and three columns. For cells, we can use a class that extends the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JButton.html" rel="noopener noreferrer nofollow">JButton</a> class. For testing purposes, you must give a name to each of the cells using the setName method. We will use <a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" rel="noopener noreferrer nofollow">algebraic notation</a> just like in chess. The bottom left cell will be named &ldquo;ButtonA1&rdquo; and the top right &ldquo;ButtonC3&rdquo;. Also, at the first stage for the text, we will indicate the coordinates of these cells from &quot;A1&quot; to &quot;C3&quot;. After starting the program, it should look like an illustration.</p>
+
+<p>To create the field itself, we can use a separate Board class extending JPannel. You can use GridLayout (3, 3) as a Layout. Then you need to create nine cells and add them to this class. The Board class itself needs to be added to the main window with the TicTacToe class.</p>
 
 <h2>Examples</h2>
 
 <p><img alt="" src="https://ucarecdn.com/5756e070-7a6a-4405-9962-c29742820867/" /></p>
+
 </html>
