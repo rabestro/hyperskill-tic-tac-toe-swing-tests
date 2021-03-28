@@ -1,44 +1,47 @@
 <html>
-<p>This is a task description file.
-Its content will be displayed to a learner
-in the <strong>Task Description</strong> window.</p>
+<h2>Description</h2>
 
-<p>It supports both Markdown and HTML.
-To toggle the format, you can rename <strong>task.md</strong>
-to <strong>task.html</strong>, or vice versa.
-The default task description format can be changed
-in <strong>Preferences | Tools | Education</strong>,
-but this will not affect any existing task description files.</p>
+<p>In this step, we will add an event listener for the field cells. The first time you click on a free cell, the &ldquo;X&rdquo; symbol should appear, while the second click on another free cell, the &ldquo;O&rdquo; symbol. We will also add a status bar and a &ldquo;Reset&rdquo; button. When you click on the &quot;Reset&quot; button, the playing field must be cleared. These improvements are enough for you to play Tic-Tac-Toe against a friend using the created program.</p>
 
-<p>The following features are available in
-<strong>task.md/task.html</strong>
-which are specific to the EduTools plugin:</p>
+<h2>Objectives</h2>
+
+<p>You must add a listener for each cell of the field. When you click on a free cell, the symbol &quot;X&quot; or &quot;O&quot; should appear, depending on whose move. If the user clicks on a cell where there is already a character, such a click should be ignored.</p>
+
+<p>The program should track the status of the game. In the event of the end of the game, further pressing on free cells of the field should be ignored. At any time, when you press the &quot;Reset&quot; button, the field should be cleared and the game starts again.</p>
+
+<p>The status field should contain one of the following messages:</p>
 
 <ul>
-<li>Hints can be added anywhere in the task text.
-Type "hint" and press Tab.
-Hints should be added to an empty line in the task text.
-In hints you can use HTML only.
-<div class="hint">Text of your hint</div></li>
-
-<li>You can insert shortcuts in the task description.
-While <strong>task.html/task.md</strong> is open,
-right-click anywhere on the <strong>Editor</strong> tab
-and choose the <strong>Insert shortcut</strong> option
-from the context menu.
-For example: &amp;shortcut:FileStructurePopup;.</li><br>
-
-<li>Insert the &percnt;<code>IDE_NAME</code>&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, <strong>%IDE_NAME%</strong>.</li><br>
-
-<li>Insert PSI elements, by using links like
-<code>&lt;a href="psi_element://link.to.element"&gt;element description&lt;/a&gt;</code>.
-To get such a link, right-click the class or method
-and select <strong>Copy Reference</strong>.
-Then press &amp;shortcut:EditorPaste;
-to insert the link where appropriate.
-For example, a
-<a href="psi_element://java.lang.String#contains">link to the "contains" method</a>.</li>
+    <li>The game is not started</li>
+    <li>The game is playing</li>
+    <li>X wins</li>
+    <li>O wins</li>
+    <li>Draw</li>
 </ul>
+
+<p>For testing purposes, you must add names for the following components:</p>
+
+<ul>
+    <li>&quot;LabelStatus&quot; for the component where the game status is displayed</li>
+    <li>&quot;ButtonReset&quot; for reset button</li>
+</ul>
+
+<p>The names for the cells of the playing field should remain the same as in the previous stage. To display symbols, you must set the button text. It must be one of three strings: &ldquo; &ldquo; for an empty cell, &ldquo;X&rdquo; for a first player and &ldquo;O&rdquo; for a second player. To remove the border around the text of the active cell, use the setFocusPainted (false) method when creating the field cell component.</p>
+
+<p>You can set any font, size and color for the cell symbols and any background for the cell itself. The tests only check the names of the components and their text.</p>
+
+<h2>Examples</h2>
+
+<figure class="image"><img alt="" height="285" src="https://ucarecdn.com/f1551a8c-12ab-4b47-956e-3bb66df16cc6/" width="268" />
+    <figcaption>Before the game</figcaption>
+</figure>
+
+<figure class="image"><img alt="" height="285" src="https://ucarecdn.com/d18f43a9-33cb-4490-8e5e-970cb6685d02/" width="270" />
+    <figcaption>Playing the game</figcaption>
+</figure>
+
+<figure class="image"><img alt="" height="285" src="https://ucarecdn.com/fb7d0af7-58d2-45c4-9718-9a1b68dd2826/" width="269" />
+    <figcaption>X wins the game</figcaption>
+</figure>
+
 </html>
