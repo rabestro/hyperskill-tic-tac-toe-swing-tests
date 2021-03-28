@@ -1,44 +1,39 @@
 <html>
-<p>This is a task description file.
-Its content will be displayed to a learner
-in the <strong>Task Description</strong> window.</p>
+<h2>Description</h2>
 
-<p>It supports both Markdown and HTML.
-To toggle the format, you can rename <strong>task.md</strong>
-to <strong>task.html</strong>, or vice versa.
-The default task description format can be changed
-in <strong>Preferences | Tools | Education</strong>,
-but this will not affect any existing task description files.</p>
+<p>In this step, we will teach the computer to play tic-tac-toe. We will add a control panel to our program where you can choose who will play for noughts and crosses. We will also add a start button to start the game.</p>
 
-<p>The following features are available in
-<strong>task.md/task.html</strong>
-which are specific to the EduTools plugin:</p>
+<h2>Objectives</h2>
+
+<p>You must develop and implement a tic-tac-toe strategy for the computer. The strategy can be as complex, for example as minimax, or the simplest one, where the computer chooses a random free field. You are given complete freedom in choosing a strategy.</p>
+
+<p>A toolbar with three buttons should be added to the program. These are buttons for selecting the first and second player and starting and resetting the game. When you click on the player&#39;s button, the program should switch from a person to a robot and vice versa. The program should support four game modes: human versus human, human versus robot, robot versus human and robot versus robot.</p>
+
+<p>Optionally, you can add a small delay (about a second) when the robot plays. Thus, if you choose to play a robot against a robot, you will be able to observe the process of the game.</p>
+
+<p>Due to testing reasons, you need to name some components.</p>
+
+<p>Set the names to these components:</p>
 
 <ul>
-<li>Hints can be added anywhere in the task text.
-Type "hint" and press Tab.
-Hints should be added to an empty line in the task text.
-In hints you can use HTML only.
-<div class="hint">Text of your hint</div></li>
-
-<li>You can insert shortcuts in the task description.
-While <strong>task.html/task.md</strong> is open,
-right-click anywhere on the <strong>Editor</strong> tab
-and choose the <strong>Insert shortcut</strong> option
-from the context menu.
-For example: &amp;shortcut:FileStructurePopup;.</li><br>
-
-<li>Insert the &percnt;<code>IDE_NAME</code>&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, <strong>%IDE_NAME%</strong>.</li><br>
-
-<li>Insert PSI elements, by using links like
-<code>&lt;a href="psi_element://link.to.element"&gt;element description&lt;/a&gt;</code>.
-To get such a link, right-click the class or method
-and select <strong>Copy Reference</strong>.
-Then press &amp;shortcut:EditorPaste;
-to insert the link where appropriate.
-For example, a
-<a href="psi_element://java.lang.String#contains">link to the "contains" method</a>.</li>
+    <li>Nine&nbsp; components for cells from &quot;ButtonA1&quot; to &quot;ButtonC3&quot;</li>
+    <li>Status bar component to &quot;LabelStatus&quot;</li>
+    <li>Player choosers to &quot;ButtonPlayer1&quot; and &quot;ButtonPlayer2&quot;</li>
+    <li>Start/Reset button to &quot;ButtonStartReset&quot;</li>
 </ul>
+
+<h2>Examples</h2>
+
+<figure class="image"><img alt="Before" height="300" src="https://ucarecdn.com/e23f5f27-7203-4a14-a580-332a30958451/" width="272" />
+    <figcaption>Initial Setup</figcaption>
+</figure>
+
+<figure class="image"><img alt="Playing the game" height="300" src="https://ucarecdn.com/c1f781dc-0d84-4b8e-b3ea-67f9a50fbf8f/" width="270" />
+    <figcaption>Playing the game</figcaption>
+</figure>
+
+<figure class="image"><img alt="X wins" height="300" src="https://ucarecdn.com/859e93c5-3b27-4bb7-9f82-447575a0080f/" width="272" />
+    <figcaption>X wins</figcaption>
+</figure>
+
 </html>

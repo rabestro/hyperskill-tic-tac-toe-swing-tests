@@ -9,7 +9,7 @@
 
 <h2>Objectives</h2>
 
-<p><span style="background-color:transparent; color:#000000; font-size:11pt; font-variant:normal">Your first task is to create the main window of the program and the field for the game. In Swing, the class that represents an empty window is </span><strong style="background-color:transparent; color:#000000; font-size:11pt; font-variant:normal">JFrame</strong><span style="background-color:transparent; color:#000000; font-size:11pt; font-variant:normal">. To improve the basic window, you should extend this class and write your own logic for the window. Here is an example of code in the constructor of the class that extends JFrame:</span></p>
+<p>Your first task is to create the main window of the program and the field for the game. In Swing, the class that represents an empty window is <strong>JFrame</strong>. To improve the basic window, you should extend this class and write your own logic for the window. Here is an example of code in the constructor of the class that extends JFrame:</p>
 
 <pre>
 <code class="language-java">setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,7 +19,7 @@ setSize(450, 450);
 setVisible(true);
 </code></pre>
 
-<p>In addition to creating a window, you need to create a field with nine cells, which we will place on a field in three rows and three columns. For cells, we can use a class that extends the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/JButton.html" rel="noopener noreferrer nofollow">JButton</a> class. For testing purposes, you must give a name to each of the cells using the setName method. We will use <a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" rel="noopener noreferrer nofollow">algebraic notation</a> just like in chess. The bottom left cell will be named &ldquo;ButtonA1&rdquo; and the top right &ldquo;ButtonC3&rdquo;. Also, at the first stage for the text, we will indicate the coordinates of these cells from &quot;A1&quot; to &quot;C3&quot;. After starting the program, it should look like an illustration.</p>
+<p>In addition to creating a window, you need to create a field with nine cells, which we will place on a field in three rows and three columns. For cells, we can use a class that extends the <a href="psi_element://javax.swing.JButton" rel="noopener noreferrer nofollow">JButton</a> class. For testing purposes, you must give a name to each of the cells using the setName method. We will use <a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" rel="noopener noreferrer nofollow">algebraic notation</a> just like in chess. The bottom left cell will be named &ldquo;ButtonA1&rdquo; and the top right &ldquo;ButtonC3&rdquo;. Also, at the first stage for the text, we will indicate the coordinates of these cells from &quot;A1&quot; to &quot;C3&quot;. After starting the program, it should look like an illustration.</p>
 
 <p>To create the field itself, we can use a separate Board class extending JPannel. You can use GridLayout (3, 3) as a Layout. Then you need to create nine cells and add them to this class. The Board class itself needs to be added to the main window with the TicTacToe class.</p>
 
