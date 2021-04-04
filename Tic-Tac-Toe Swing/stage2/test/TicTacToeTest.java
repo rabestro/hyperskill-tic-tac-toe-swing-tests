@@ -141,7 +141,7 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "The status bar should contains text 'The game is not started' before the game")
+    @DynamicTest(feedback = "The status bar should contains text 'Game is not started' before the game")
     CheckResult test7() {
         labelStatus.requireText(GAME_STATE.get("E"));
         return correct();

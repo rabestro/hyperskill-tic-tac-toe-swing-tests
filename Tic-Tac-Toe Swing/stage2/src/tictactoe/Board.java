@@ -81,12 +81,11 @@ public class Board extends JPanel  {
     }
 
     public enum State {
-        NOT_STARTED("The game is not started"),
-        PLAYING("The game is playing"),
+        NOT_STARTED("Game is not started"),
+        PLAYING("Game in progress"),
         DRAW("Draw"),
         X_WINS("X wins"),
-        O_WINS("O wins"),
-        IMPOSSIBLE("Impossible");
+        O_WINS("O wins");
 
         final String message;
 
