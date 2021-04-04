@@ -25,7 +25,7 @@ public class TicTacToeTest extends SwingTest {
     private static final String MARK_X = "X";
     private static final String MARK_O = "O";
     private static final Map<String, String> GAME_STATE = Map.of(
-            "--", "The game is not started",
+            "--", "Game is not started",
             "H1", "The turn of Human Player (X)",
             "R1", "The turn of Robot Player (X)",
             "H2", "The turn of Human Player (O)",
