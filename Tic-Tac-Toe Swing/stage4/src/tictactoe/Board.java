@@ -87,7 +87,7 @@ public class Board extends JPanel  {
     }
 
     public enum State {
-        EMPTY("The game is not started"),
+        EMPTY("Game is not started"),
         PLAYING("The turn of {0} Player ({1})"),
         DRAW("Draw"),
         X_WINS("The {0} Player (X) wins"),

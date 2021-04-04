@@ -2,3 +2,5 @@ type: edu
 files:
 - name: logging.properties
   visible: true
+- name: src/tictactoe/ApplicationRunner.java
+  visible: true
