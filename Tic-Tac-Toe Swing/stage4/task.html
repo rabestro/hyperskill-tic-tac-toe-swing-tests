@@ -1,56 +1,53 @@
 <h2>Description</h2>
 
-<p>At this stage, we will complete our program. We will add a menu to quickly launch the game in a specific player configuration. We will also add a more detailed message in the status bar about the current turn and at the end of the game.</p>
+<p>This is the final stage of our project. You need to add a menu for a quick game launch with a specific player configuration. Your program also lacks more detailed messages in the status bar about the current status of the game.</p>
 
 <h2>Objectives</h2>
 
-<p>We will make the messages in the status bar more informative. Now, together with the status &ldquo;The game is playing&rdquo;, the program will show which player is the move. The message should look like: &ldquo;The turn of {0} Player ({1})&rdquo;. After the end of the game, the program should print in the status line: &ldquo;The {0} Player ({1}) wins&rdquo;. We have provided messages in the format of the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/MessageFormat.html" rel="noopener noreferrer nofollow">MessageFormat</a> class. Here, instead of {0} should be the player&#39;s name &ldquo;Human&rdquo; or &ldquo;Robot&rdquo;, and instead of {1} should be &ldquo;X&rdquo; or &ldquo;O&rdquo;.</p>
+<p>Make the status bar more informative. We already have the <code>Game in progress</code> status; add a new message that displays the current turn: <code>The turn of {0} Player ({1})</code>. After the end of the game, the program should output the following message: <code>The {0} Player ({1}) wins</code>. You can use the <code>MessageFormat</code> class for this (take a look at the official <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/MessageFormat.html" rel="noopener noreferrer nofollow">Oracle doc</a> for help). Instead of <code>{0}</code>, insert either <code>Human</code> or <code>Robot</code>. Instead of <code>{1}</code>, output either <code>X</code> or <code>O</code>.</p>
 
-<p>You also need to add a Game menu containing five items:</p>
+<p>Add a Game menu that includes five items:</p>
 
 <ol>
-    <li>Human vs Human</li>
-    <li>Human vs Robot</li>
-    <li>Robot v Human</li>
-    <li>Robot vs Robot</li>
+    <li>Human vs. Human</li>
+    <li>Human vs. Robot</li>
+    <li>Robot vs. Human</li>
+    <li>Robot vs. Robot</li>
     <li>Exit</li>
 </ol>
 
-<p>You can add a dividing line before the &ldquo;Exit&rdquo; menu item. This is done using the code:</p>
+<p>You can add a dividing line before the <code>Exit</code> item. You can use the following piece of code for this:</p>
 
-<pre>
-<code class="language-java">menuGame.addSeparator();
+<pre><code class="language-java">menuGame.addSeparator();
 menuGame.add(menuItemExit);</code></pre>
 
-<p>When you select one of the first four menu items, the program must clear the field, set the desired values ​​for the players in the toolbar and start the game. Please note that when starting the game, the &quot;Start/Reset&quot; button must be set to &quot;Reset&quot; mode, the players&#39; buttons must be disabled, and the field cells must be enabled.</p>
+<p>When you select one of the first four menu items, the program must clear the field, set the desired player values in the toolbar, and start the game. When the game is on, the <code>Start/Reset</code> button must be set to <code>Reset</code> mode, the player buttons must be disabled, and the field cells must be enabled.</p>
 
 <p>For testing purposes, the menu components should be named as follows:</p>
 
 <ul>
-    <li>menuGame</li>
-    <li>menuHumanHuman</li>
-    <li>menuHumanRobot</li>
-    <li>menuRobotHuman</li>
-    <li>menuRobotRobot</li>
-    <li>menuExit</li>
+    <li><code>menuGame</code></li>
+    <li><code>menuHumanHuman</code></li>
+    <li><code>menuHumanRobot</code></li>
+    <li><code>menuRobotHuman</code></li>
+    <li><code>menuRobotRobot</code></li>
+    <li><code>menuExit</code></li>
 </ul>
-
-<p>...</p>
 
 <h2>Examples</h2>
 
-<figure class="image"><img alt="" height="300" src="https://ucarecdn.com/a333dc67-3129-4502-af53-a3be1e026a0f/" width="266" />
-    <figcaption>Initial setup</figcaption>
-</figure>
+<p><strong>Example 1:</strong> <em>Initial setup</em></p>
 
-<figure class="image"><img alt="" height="300" src="https://ucarecdn.com/06dd9e11-7c20-4d46-a0dd-180b14795cfc/" width="266" />
-    <figcaption>The game just started</figcaption>
-</figure>
+<p><img alt="" height="300" src="https://ucarecdn.com/a333dc67-3129-4502-af53-a3be1e026a0f/" width="266"></p>
 
-<figure class="image"><img alt="Human Player (X) wins" height="300" src="https://ucarecdn.com/6779c714-252e-4c4e-a8a9-0179e93462ca/" width="266" />
-    <figcaption>Human wins</figcaption>
-</figure>
+<p><strong>Example 2:</strong> <em>New game</em></p>
 
-<figure class="image"><img alt="" height="300" src="https://ucarecdn.com/41942a86-e9fd-4609-aa15-c9c80c7bcf13/" width="266" />
-    <figcaption>Menu for quick setup</figcaption>
-</figure>
+<p><img alt="" height="300" src="https://ucarecdn.com/06dd9e11-7c20-4d46-a0dd-180b14795cfc/" width="266"></p>
+
+<p><strong>Example 3:</strong> <em>X wins</em></p>
+
+<p><img alt="Human Player (X) wins" height="300" src="https://ucarecdn.com/6779c714-252e-4c4e-a8a9-0179e93462ca/" width="266"></p>
+
+<p><strong>Example 4:</strong> <em>The menu</em></p>
+
+<p><img alt="" height="300" src="https://ucarecdn.com/41942a86-e9fd-4609-aa15-c9c80c7bcf13/" width="266"></p>

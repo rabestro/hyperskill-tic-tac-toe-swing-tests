@@ -24,8 +24,8 @@ public class TicTacToeTest extends SwingTest {
     private static final String MARK_X = "X";
     private static final String MARK_O = "O";
     private static final Map<String, String> GAME_STATE = Map.of(
-            "E", "The game is not started",
-            "P", "The game is playing",
+            "E", "Game is not started",
+            "P", "Game in progress",
             "X", "X wins",
             "O", "O wins",
             "D", "Draw");
@@ -170,7 +170,7 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    private String[][] humanVsHuman = new String[][]{
+    private final String[][] humanVsHuman = new String[][]{
             {"A1", "______X__", "P"}, {"B1", "______XO_", "P"},
             {"C3", "__X___XO_", "P"}, {"B3", "_OX___XO_", "P"},
             {"B2", "_OX_X_XO_", "X"}, {"RS", "_________", "E"},

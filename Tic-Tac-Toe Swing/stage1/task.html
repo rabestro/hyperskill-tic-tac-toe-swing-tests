@@ -1,15 +1,14 @@
-<html>
 <h2>Description</h2>
 
-<p>Tic-tac-toe is known all over the world. Each country may have its own version of the name, sometimes the rules are different, but the essence of the game remains the same. Below are the main rules that may be familiar to you since childhood.</p>
+<p>Tic-tac-toe is played all over the world. There are a lot of versions of the game with different rules, but the essence of the game remains. Anyway, it&#39;s always good to refresh our memory about the rules.</p>
 
-<p>Tic-tac-toe is a game played by two players on a 3x3 grid. One of the players is &#39;X&#39;, and the other player is &#39;O&#39;. X plays first, then O takes the next turn, and so on. The players write &#39;X&#39; and &#39;O&#39; on a 3x3 field. The first player that puts 3 X&#39;s or 3 O&#39;s in a straight line (including diagonals) wins the game.</p>
+<p>Tic-tac-toe is a two-player game with a 3x3 grid. One of the players is <code>X</code>,&nbsp;another player is <code>O</code>. <code>X</code> starts first, then <code>O</code> takes the next turn, and so on. The players mark&nbsp;&nbsp;<code>X</code>&nbsp;or <code>O</code>&nbsp;on a 3x3 field. The first player that puts three <code>X&#39;s</code> or <code>O&#39;s</code> on a straight line (including diagonals) wins the game.</p>
 
-<p>In this project, you will create a Tic-Tac-Toe game with a graphical user interface (GUI) using the Swing framework. The program will allow you to play both against another player or against the computer. You can also configure the game so that the computer plays against itself, and you will observe the process of the game.</p>
+<p>In this project, you will create a Tic-tac-toe game with a graphical user interface (GUI) using the Swing framework. The program will allow you to play both against another player or a computer. You can also configure the game so that the computer can play&nbsp;against itself.</p>
 
 <h2>Objectives</h2>
 
-<p>Your first task is to create the main window of the program and the field for the game. In Swing, the class that represents an empty window is <strong>JFrame</strong>. To improve the basic window, you should extend this class and write your own logic for the window. Here is an example of code in the constructor of the class that extends JFrame:</p>
+<p>Your first task is to create the main window of the program and the field for the game. Swing has a special class that represents an empty window &mdash;&nbsp;<code>JFrame</code>. To improve a basic window, extend this class and write your own window logic. Here is an example of the code with&nbsp;<code>JFrame</code>:</p>
 
 <pre>
 <code class="language-java">setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -19,12 +18,12 @@ setSize(450, 450);
 setVisible(true);
 </code></pre>
 
-<p>In addition to creating a window, you need to create a field with nine cells, which we will place on a field in three rows and three columns. For cells, we can use a class that extends the <a href="psi_element://javax.swing.JButton" rel="noopener noreferrer nofollow">JButton</a> class. For testing purposes, you must give a name to each of the cells using the setName method. We will use <a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" rel="noopener noreferrer nofollow">algebraic notation</a> just like in chess. The bottom left cell will be named &ldquo;ButtonA1&rdquo; and the top right &ldquo;ButtonC3&rdquo;. Also, at the first stage for the text, we will indicate the coordinates of these cells from &quot;A1&quot; to &quot;C3&quot;. After starting the program, it should look like an illustration.</p>
+<p>In addition to the&nbsp;window,&nbsp;create a field with nine cells that represent three rows and three columns. We can use another class that extends the <code>JButton</code> class for our cells. For testing purposes,&nbsp;give a name to each of the cells using the <code>setName</code> method. We will use the&nbsp;<a href="https://en.wikipedia.org/wiki/Algebraic_notation_(chess)" rel="noopener noreferrer nofollow">algebraic chess notation</a>. Name bottom left cell as&nbsp;<code>ButtonA1</code>&nbsp;and the top right as&nbsp;<code>ButtonC3</code>. Also, at the first stage, indicate the coordinates of these cells from <code>A1</code>&nbsp;to <code>C3</code>. After starting the program, it should look like an illustration.</p>
 
-<p>To create the field itself, we can use a separate Board class extending JPannel. You can use GridLayout (3, 3) as a Layout. Then you need to create nine cells and add them to this class. The Board class itself needs to be added to the main window with the TicTacToe class.</p>
+<p>To create a&nbsp;field, we can use a separate Board class extending <code>JPanel</code>. You can use <code>GridLayout (3, 3)</code> as the&nbsp;<code>Layout</code>. After that, you need to create nine cells and add them to this class. Add the Board class to the main window with the <code>TicTacToe</code> class.</p>
 
 <h2>Examples</h2>
 
-<p><img alt="" src="https://ucarecdn.com/5756e070-7a6a-4405-9962-c29742820867/" /></p>
+<p><strong>Example 1:</strong> <em>The playing field</em></p>
 
-</html>
+<p><img alt="" src="https://ucarecdn.com/5756e070-7a6a-4405-9962-c29742820867/" /></p>
