@@ -45,7 +45,7 @@ public class TicTacToeTest extends SwingTest {
 
     private final List<JButton> buttons = new ArrayList<>();
 
-    @DynamicTest(feedback = "Buttons should have a name buttonA1..buttonC3, be visible and have labels 'A1'...'C3'")
+    @DynamicTest(feedback = "Buttons should have a name (buttonA1..buttonC3), be visible, and have the following labels: 'A1'...'C3'")
     CheckResult test1() {
         final var board = Map.of(
                 "A3", buttonA3, "B3", buttonB3, "C3", buttonC3,
@@ -96,11 +96,11 @@ public class TicTacToeTest extends SwingTest {
         range(0, BOARD_SIZE * BOARD_SIZE).forEach(index -> {
 
             assertEquals(rows[index / BOARD_SIZE], buttons.get(index).getY(),
-                    "The button {0} should be located on the {1} row",
+                    "The button {0} should be located in the {1} row",
                     buttons.get(index).getText(), ROW_NAME[index / BOARD_SIZE]);
 
             assertEquals(cols[index % BOARD_SIZE], buttons.get(index).getX(),
-                    "The button {0} should be located on the {1} column",
+                    "The button {0} should be located in the {1} column",
                     buttons.get(index).getText(), COL_NAME[index % BOARD_SIZE]);
         });
 
