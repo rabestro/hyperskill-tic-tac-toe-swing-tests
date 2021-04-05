@@ -85,7 +85,7 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "Cells should be disabled before the game started")
+    @DynamicTest(feedback = "Cells should be disabled before the start of the game")
     CheckResult test2() {
         cells().forEach(this::requireDisabled);
         return correct();
@@ -107,14 +107,14 @@ public class TicTacToeTest extends SwingTest {
 
         assertEquals(3, cols.length,
                 "The board should have exactly 3 columns. "
-                        + "The coordinates for columns are {0}, "
-                        + "the buttons have {1} different coordinates for columns",
+                        + "The column coordinates are {0}, "
+                        + "the buttons have {1} different column coordinates",
                 Arrays.toString(cols), cols.length);
 
         assertEquals(3, rows.length,
                 "The board should have exactly 3 rows. "
-                        + "The coordinates for rows are {0}, "
-                        + "The buttons have {0} different coordinates for rows",
+                        + "The row coordinates are {0}, "
+                        + "The buttons have {0} different row coordinates",
                 Arrays.toString(rows), rows.length);
 
         return correct();
@@ -128,68 +128,68 @@ public class TicTacToeTest extends SwingTest {
         range(0, 9).forEach(index -> {
 
             assertEquals(rows[index / 3], buttons.get(index).getY(),
-                    "The button {0} should be located on the {1} row",
+                    "The button {0} should be located in the {1} row",
                     buttons.get(index).getText(), ROW_NAME[index / 3]);
 
             assertEquals(cols[index % 3], buttons.get(index).getX(),
-                    "The button {0} should be located on the {1} column",
+                    "The button {0} should be located in the {1} column",
                     buttons.get(index).getText(), COL_NAME[index % 3]);
         });
 
         return correct();
     }
 
-    @DynamicTest(feedback = "An JLabel with name 'LabelStatus' should be added as status bar")
+    @DynamicTest(feedback = "Add a JLabel with the name of 'LabelStatus' as status bar")
     CheckResult test6() {
         labelStatus.requireVisible();
         return correct();
     }
 
-    @DynamicTest(feedback = "The status bar should contains text 'Game is not started' before the game")
+    @DynamicTest(feedback = "The status bar should contain the following text: 'Game is not started' before the game")
     CheckResult test7() {
         labelStatus.requireText(GAME_STATE.get("E"));
         return correct();
     }
 
-    @DynamicTest(feedback = "An JButton with name 'ButtonStartReset' should be added and enabled")
+    @DynamicTest(feedback = "Add a JButton with the name of 'ButtonStartReset' and enable it")
     CheckResult test8() {
         buttonStartReset.requireEnabled();
         return correct();
     }
 
-    @DynamicTest(feedback = "The component 'ButtonStartReset' should have text 'Start' after program start")
+    @DynamicTest(feedback = "The 'ButtonStartReset' component should have the follwoing text: 'Start' after the program starts")
     CheckResult test9() {
         buttonStartReset.requireText("Start");
         return correct();
     }
 
-    @DynamicTest(feedback = "After click on 'Start' the text of button should changed to 'Reset'")
+    @DynamicTest(feedback = "After a click, 'Start' should be changed to 'Reset'")
     CheckResult test10() {
         buttonStartReset.click();
         buttonStartReset.requireText("Reset");
         return correct();
     }
 
-    @DynamicTest(feedback = "Cells should be enable after the game started")
+    @DynamicTest(feedback = "Cells should be enabled after the game started")
     CheckResult test12() {
         cells().forEach(this::requireEnabled);
         return correct();
     }
 
-    @DynamicTest(feedback = "After the game started the status should be 'Game in progress'")
+    @DynamicTest(feedback = "After the game has started, display the 'Game in progress' status")
     CheckResult test13() {
         labelStatus.requireText(GAME_STATE.get("P"));
         return correct();
     }
 
-    @DynamicTest(feedback = "Player's chooser component should be disabled after the game started")
+    @DynamicTest(feedback = "Disable player buttons after the start of the game")
     CheckResult test14() {
         buttonPlayer1.requireDisabled();
         buttonPlayer2.requireDisabled();
         return correct();
     }
 
-    @DynamicTest(feedback = "The first player should have 'X' mark and the second 'O'")
+    @DynamicTest(feedback = "The first player should be 'X', the second — 'O'")
     CheckResult test15() {
         buttonA1.click();
         buttonA1.requireText(MARK_X);
@@ -198,8 +198,8 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "After the 'Reset' button is pressed and game finished " +
-            "the Player's chooser components should be enabled")
+    @DynamicTest(feedback = "Enable player buttons after the game is over or the 'Reset' button is pressed" +
+            "Enable player buttons")
     CheckResult test16() {
         buttonStartReset.click();
         buttonPlayer1.requireEnabled();
@@ -207,8 +207,8 @@ public class TicTacToeTest extends SwingTest {
         return correct();
     }
 
-    @DynamicTest(feedback = "After the reset button pressed the board should be empty" +
-            " and status should indicate that 'The game is not started'")
+    @DynamicTest(feedback = "The 'Reset' button should clear the board" +
+            " and status should indicate 'The game is not started'")
     CheckResult test18() {
         cells().forEach(cell -> cell.requireText(EMPTY_CELL));
         labelStatus.requireText(GAME_STATE.get("E"));
@@ -246,7 +246,7 @@ public class TicTacToeTest extends SwingTest {
             {"A1", "X___XO_OX", "X"}, {"SR", "_________", "E"},
     };
 
-    @DynamicTest(data = "humanVsHuman", feedback = "Incorrect state of the game")
+    @DynamicTest(data = "humanVsHuman", feedback = "Incorrect game status")
     CheckResult test20(final String cell, final String position, final String state) {
         board.get(cell).click();
         labelStatus.requireText(GAME_STATE.get(state));
@@ -256,14 +256,14 @@ public class TicTacToeTest extends SwingTest {
     }
 
 
-    @DynamicTest(feedback = "The player's buttons should be Human vs Human")
+    @DynamicTest(feedback = "The player buttons should be Human vs Human")
     CheckResult test30() {
         buttonPlayer1.requireText("Human");
         buttonPlayer2.requireText("Human");
         return correct();
     }
 
-    @DynamicTest(feedback = "The player's buttons should switch Human/Robot")
+    @DynamicTest(feedback = "The player buttons should switch Human/Robot")
     CheckResult test40() {
         buttonPlayer1.click();
         buttonPlayer1.requireText("Robot");
